@@ -2,7 +2,7 @@
   "name": "wall-ani",
   "version": "1.0.0",
   "engines": {
-    "node": "18.x"
+    "node": "24.x"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.39.0"
