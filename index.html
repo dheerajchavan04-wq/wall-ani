@@ -3,1258 +3,1242 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>wall-ANI</title>
+
+  <!-- ═══ SEO ═══ -->
+  <title>wall-ANI — Anime Wallpapers HD</title>
+  <meta name="description" content="Discover and download thousands of high-quality anime wallpapers in HD. Free anime wallpaper app with favorites, downloads and search." />
+  <meta name="keywords" content="anime wallpapers, HD wallpapers, free anime wallpapers, anime backgrounds, wall-ani, anime art, 4k anime" />
+  <meta name="author" content="wall-ANI" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <link rel="canonical" href="https://wall-ani.vercel.app/" />
+
+  <!-- ═══ OPEN GRAPH ═══ -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://wall-ani.vercel.app/" />
+  <meta property="og:title" content="wall-ANI — Anime Wallpapers HD" />
+  <meta property="og:description" content="Discover and download thousands of high-quality anime wallpapers in HD." />
+  <meta property="og:site_name" content="wall-ANI" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="wall-ANI — Anime Wallpapers HD" />
+  <meta name="twitter:description" content="Discover and download thousands of high-quality anime wallpapers in HD." />
+
+  <!-- ═══ PWA ═══ -->
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="wall-ANI" />
+  <meta name="mobile-web-app-capable" content="yes" />
+
+  <!-- ═══ STRUCTURED DATA ═══ -->
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"wall-ANI","url":"https://wall-ani.vercel.app","description":"Discover and download thousands of high-quality anime wallpapers in HD.","applicationCategory":"EntertainmentApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+
+  <!-- ═══ FONTS ═══ -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
   <style>
+    /* ═══════════════════════════════════════════════
+       DESIGN TOKENS — BLACK & GOLD
+    ═══════════════════════════════════════════════ */
     :root {
-      --bg-primary: #070710;
-      --bg-secondary: #0d0d1a;
-      --bg-card: rgba(255,255,255,0.04);
-      --bg-card-hover: rgba(255,255,255,0.08);
-      --glass: rgba(255,255,255,0.06);
-      --glass-border: rgba(255,255,255,0.1);
-      --accent: #e63f5a;
-      --accent-2: #7c3aed;
-      --accent-glow: rgba(230,63,90,0.4);
-      --text-primary: #f0f0f8;
-      --text-secondary: #8888aa;
-      --text-muted: #555577;
-      --topbar-h: 58px;
-      --tabbar-h: 64px;
-      --radius: 14px;
-      --radius-sm: 8px;
-      --transition: 0.22s cubic-bezier(0.4,0,0.2,1);
+      --bg:           #0a0a0a;
+      --bg2:          #111111;
+      --bg3:          #181818;
+      --bg4:          #202020;
+      --card:         rgba(255,255,255,0.03);
+      --card-hover:   rgba(255,255,255,0.06);
+      --border:       rgba(255,255,255,0.07);
+      --border-gold:  rgba(201,168,76,0.25);
+      --gold:         #c9a84c;
+      --gold-bright:  #f0c040;
+      --gold-glow:    rgba(201,168,76,0.35);
+      --gold-dim:     rgba(201,168,76,0.1);
+      --text:         #f0ede8;
+      --text-2:       #888880;
+      --text-3:       #3a3a38;
+      --topbar-h:     56px;
+      --tabbar-h:     62px;
+      --r:            10px;
+      --r-sm:         7px;
+      --t:            0.2s cubic-bezier(0.4,0,0.2,1);
     }
+
     [data-theme="light"] {
-      --bg-primary: #f4f4f9;
-      --bg-secondary: #e9e9f3;
-      --bg-card: rgba(0,0,0,0.04);
-      --bg-card-hover: rgba(0,0,0,0.08);
-      --glass: rgba(0,0,0,0.04);
-      --glass-border: rgba(0,0,0,0.1);
-      --text-primary: #111122;
-      --text-secondary: #444466;
-      --text-muted: #888899;
+      --bg:          #f5f3ee;
+      --bg2:         #ede9e0;
+      --bg3:         #e4dfd4;
+      --bg4:         #d8d2c6;
+      --card:        rgba(0,0,0,0.04);
+      --card-hover:  rgba(0,0,0,0.07);
+      --border:      rgba(0,0,0,0.08);
+      --border-gold: rgba(180,140,40,0.3);
+      --gold:        #a07828;
+      --gold-bright: #c89a30;
+      --gold-glow:   rgba(160,120,40,0.3);
+      --gold-dim:    rgba(160,120,40,0.08);
+      --text:        #1a1810;
+      --text-2:      #6a6458;
+      --text-3:      #aaa090;
     }
+
+    /* ═══ RESET ═══ */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { font-size: 15px; -webkit-tap-highlight-color: transparent; }
+    html { font-size: 15px; -webkit-tap-highlight-color: transparent; scroll-behavior: smooth; }
     body {
-      font-family: 'Syne', sans-serif;
-      background: var(--bg-primary);
-      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
       min-height: 100vh;
       overflow-x: hidden;
-      transition: background var(--transition), color var(--transition);
+      transition: background var(--t), color var(--t);
     }
     body::before {
       content: '';
       position: fixed; inset: 0; z-index: 0;
       background:
-        radial-gradient(ellipse 80% 60% at 20% 10%, rgba(124,58,237,0.12) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 50% at 80% 90%, rgba(230,63,90,0.1) 0%, transparent 60%);
+        radial-gradient(ellipse 60% 40% at 10% 0%, rgba(201,168,76,0.07) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 30% at 90% 100%, rgba(201,168,76,0.04) 0%, transparent 65%);
       pointer-events: none;
     }
+
+    /* ═══ TOPBAR ═══ */
     #topbar {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       height: var(--topbar-h);
       display: flex; align-items: center; justify-content: space-between;
-      padding: 0 18px;
-      background: rgba(7,7,16,0.85);
-      backdrop-filter: blur(20px) saturate(180%);
-      -webkit-backdrop-filter: blur(20px) saturate(180%);
-      border-bottom: 1px solid var(--glass-border);
+      padding: 0 16px;
+      background: rgba(10,10,10,0.92);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      border-bottom: 1px solid rgba(201,168,76,0.1);
     }
-    [data-theme="light"] #topbar { background: rgba(244,244,249,0.85); }
+    [data-theme="light"] #topbar { background: rgba(245,243,238,0.92); }
+
     #topbar-logo {
       font-family: 'Orbitron', monospace;
-      font-weight: 900; font-size: 1.2rem;
-      letter-spacing: 0.05em; color: var(--text-primary);
-      display: flex; align-items: center; gap: 8px;
+      font-weight: 900; font-size: 1.1rem;
+      letter-spacing: 0.06em; color: var(--text);
     }
-    #topbar-logo span { color: var(--accent); text-shadow: 0 0 16px var(--accent-glow); }
-    #hamburger-btn {
-      width: 38px; height: 38px;
-      display: flex; align-items: center; justify-content: center;
-      background: var(--glass); border: 1px solid var(--glass-border);
-      border-radius: var(--radius-sm); cursor: pointer;
-      color: var(--text-primary); font-size: 1.1rem;
-      transition: background var(--transition), transform var(--transition);
+    #topbar-logo span {
+      color: var(--gold);
+      text-shadow: 0 0 18px var(--gold-glow);
     }
-    #hamburger-btn:hover { background: var(--bg-card-hover); transform: scale(1.05); }
+
     #page-title {
-      font-family: 'Orbitron', monospace; font-size: 0.85rem;
-      font-weight: 600; letter-spacing: 0.12em;
-      color: var(--text-secondary); text-transform: uppercase;
+      font-family: 'Orbitron', monospace;
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.18em; color: var(--text-2);
+      text-transform: uppercase;
     }
 
-    /* Source badge */
-    .source-badge {
-      position: absolute; bottom: 6px; left: 6px;
-      font-size: 0.55rem; font-weight: 700; letter-spacing: 0.08em;
-      text-transform: uppercase; padding: 2px 6px;
-      border-radius: 4px; backdrop-filter: blur(8px);
+    .icon-btn {
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--gold-dim);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--r-sm); cursor: pointer;
+      color: var(--text-2); font-size: 0.88rem;
+      transition: all var(--t);
     }
-    .source-badge.wallhaven { background: rgba(124,58,237,0.75); color: #fff; }
-    .source-badge.supabase  { background: rgba(230,63,90,0.75);  color: #fff; }
+    .icon-btn:hover { background: rgba(201,168,76,0.16); color: var(--gold); }
 
-    /* Search bar */
-    #search-wrap {
-      padding: 10px 14px 4px;
-      position: relative; z-index: 1;
+    /* ═══ AUTO BADGE ═══ */
+    #auto-badge {
+      display: none;
+      position: fixed; top: calc(var(--topbar-h) + 8px); right: 14px;
+      background: var(--gold-dim); border: 1px solid var(--border-gold);
+      border-radius: 20px; padding: 3px 10px;
+      font-size: 0.65rem; color: var(--gold); font-weight: 700;
+      letter-spacing: 0.06em; z-index: 90;
     }
-    #search-input {
-      width: 100%; padding: 10px 16px 10px 38px;
-      background: var(--bg-card); border: 1px solid var(--glass-border);
-      border-radius: 30px; color: var(--text-primary);
-      font-family: 'Syne', sans-serif; font-size: 0.88rem;
-      outline: none; transition: border-color var(--transition);
-    }
-    #search-input:focus { border-color: rgba(230,63,90,0.5); }
-    #search-input::placeholder { color: var(--text-muted); }
-    #search-icon {
-      position: absolute; left: 26px; top: 50%;
-      transform: translateY(-50%);
-      color: var(--text-muted); font-size: 0.85rem;
-      pointer-events: none;
-    }
+    #auto-badge.on { display: block; }
 
-    /* Stats bar */
-    #stats-bar {
-      padding: 6px 14px 10px;
-      display: flex; align-items: center; gap: 8px;
-      font-size: 0.72rem; color: var(--text-muted);
-      position: relative; z-index: 1;
-    }
-    .stats-dot { width: 6px; height: 6px; border-radius: 50%; }
-    .stats-dot.wh { background: var(--accent-2); }
-    .stats-dot.sb { background: var(--accent); }
-
+    /* ═══ DRAWER OVERLAY ═══ */
     #drawer-overlay {
       position: fixed; inset: 0; z-index: 200;
-      background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
-      opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+      background: rgba(0,0,0,0.7); backdrop-filter: blur(4px);
+      opacity: 0; pointer-events: none; transition: opacity 0.28s;
     }
     #drawer-overlay.open { opacity: 1; pointer-events: all; }
+
+    /* ═══ DRAWER ═══ */
     #drawer {
       position: fixed; top: 0; left: 0; bottom: 0; z-index: 300;
-      width: 300px;
-      background: rgba(10,10,22,0.97); backdrop-filter: blur(30px);
-      border-right: 1px solid var(--glass-border);
+      width: 290px;
+      background: #0e0e0e;
+      border-right: 1px solid rgba(201,168,76,0.12);
       transform: translateX(-100%);
-      transition: transform 0.32s cubic-bezier(0.4,0,0.2,1);
-      overflow-y: auto; padding: 0 0 32px;
+      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+      overflow-y: auto; padding: 0 0 40px;
     }
-    [data-theme="light"] #drawer { background: rgba(240,240,248,0.97); }
+    [data-theme="light"] #drawer { background: #f0ece2; }
     #drawer.open { transform: translateX(0); }
+
     #drawer-header {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 22px 20px 18px; border-bottom: 1px solid var(--glass-border);
+      padding: 20px 18px 16px;
+      border-bottom: 1px solid rgba(201,168,76,0.1);
     }
-    #drawer-header .drawer-title {
+    .drawer-title {
       font-family: 'Orbitron', monospace;
-      font-size: 1rem; font-weight: 800;
-      color: var(--accent); letter-spacing: 0.08em;
+      font-size: 0.85rem; font-weight: 900;
+      color: var(--gold); letter-spacing: 0.1em;
     }
     #drawer-close {
-      width: 32px; height: 32px;
-      display: flex; align-items: center; justify-content: center;
-      background: var(--glass); border: 1px solid var(--glass-border);
-      border-radius: var(--radius-sm); cursor: pointer;
-      color: var(--text-secondary); font-size: 0.9rem;
-      transition: color var(--transition), background var(--transition);
-    }
-    #drawer-close:hover { color: var(--accent); background: rgba(230,63,90,0.1); }
-    .drawer-section { padding: 20px 20px 0; }
-    .drawer-section-title {
-      font-size: 0.7rem; font-weight: 700;
-      letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--text-muted); margin-bottom: 14px;
-    }
-    .sort-options { display: flex; flex-direction: column; gap: 8px; }
-    .sort-option {
-      display: flex; align-items: center; gap: 10px;
-      padding: 10px 14px; background: var(--bg-card);
-      border: 1px solid var(--glass-border); border-radius: var(--radius-sm);
-      cursor: pointer; transition: background var(--transition), border-color var(--transition);
-    }
-    .sort-option:hover, .sort-option.active {
-      background: rgba(230,63,90,0.1); border-color: rgba(230,63,90,0.4);
-    }
-    .sort-option input[type="radio"] { display: none; }
-    .sort-option .sort-dot {
-      width: 14px; height: 14px; border-radius: 50%;
-      border: 2px solid var(--text-muted);
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; transition: border-color var(--transition);
-    }
-    .sort-option.active .sort-dot { border-color: var(--accent); background: var(--accent); }
-    .sort-option span { font-size: 0.88rem; color: var(--text-secondary); }
-    .sort-option.active span { color: var(--text-primary); font-weight: 600; }
-
-    /* Source toggle in drawer */
-    .source-toggles { display: flex; flex-direction: column; gap: 8px; }
-    .source-toggle-item {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 10px 14px; background: var(--bg-card);
-      border: 1px solid var(--glass-border); border-radius: var(--radius-sm);
-    }
-    .source-toggle-label { font-size: 0.85rem; color: var(--text-secondary); display: flex; align-items: center; gap: 8px; }
-    .source-toggle-label i { color: var(--accent); }
-
-    #category-filters { display: flex; flex-direction: column; gap: 6px; }
-    .cat-filter {
-      display: flex; align-items: center; gap: 10px;
-      padding: 9px 14px; background: var(--bg-card);
-      border: 1px solid var(--glass-border); border-radius: var(--radius-sm);
-      cursor: pointer; transition: background var(--transition), border-color var(--transition);
-    }
-    .cat-filter:hover { background: var(--bg-card-hover); }
-    .cat-filter.active { background: rgba(124,58,237,0.12); border-color: rgba(124,58,237,0.4); }
-    .cat-filter input[type="checkbox"] { display: none; }
-    .cat-check {
-      width: 16px; height: 16px; border-radius: 4px;
-      border: 2px solid var(--text-muted);
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; font-size: 0.6rem; color: #fff;
-      transition: background var(--transition), border-color var(--transition);
-    }
-    .cat-filter.active .cat-check { background: var(--accent-2); border-color: var(--accent-2); }
-    .cat-filter span { font-size: 0.85rem; color: var(--text-secondary); }
-    .no-cats { font-size: 0.82rem; color: var(--text-muted); padding: 6px 4px; }
-    #reset-filters-btn {
-      margin: 16px 20px 0; width: calc(100% - 40px); padding: 11px;
-      background: rgba(230,63,90,0.1); border: 1px solid rgba(230,63,90,0.3);
-      border-radius: var(--radius-sm); color: var(--accent);
-      font-family: 'Syne', sans-serif; font-size: 0.85rem;
-      font-weight: 600; cursor: pointer; letter-spacing: 0.05em;
-      transition: background var(--transition);
-    }
-    #reset-filters-btn:hover { background: rgba(230,63,90,0.2); }
-    #main {
-      padding-top: calc(var(--topbar-h) + 16px);
-      padding-bottom: calc(var(--tabbar-h) + 20px);
-      min-height: 100vh; position: relative; z-index: 1;
-    }
-    .page { display: none; padding: 0 14px; }
-    .page.active-page { display: block; }
-    .wallpaper-grid {
-      display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
-    }
-    @media (min-width: 600px)  { .wallpaper-grid { grid-template-columns: repeat(3, 1fr); } }
-    @media (min-width: 1024px) { .wallpaper-grid { grid-template-columns: repeat(5, 1fr); } }
-    @media (min-width: 1400px) { .wallpaper-grid { grid-template-columns: repeat(6, 1fr); } }
-    .wallpaper-card {
-      background: var(--bg-card); border: 1px solid var(--glass-border);
-      border-radius: var(--radius); overflow: hidden; cursor: pointer;
-      position: relative;
-      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
-      animation: cardIn 0.35s ease both;
-    }
-    @keyframes cardIn {
-      from { opacity: 0; transform: translateY(18px) scale(0.97); }
-      to   { opacity: 1; transform: none; }
-    }
-    .wallpaper-card:hover {
-      transform: translateY(-4px) scale(1.02);
-      border-color: rgba(230,63,90,0.35);
-      box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(230,63,90,0.15);
-    }
-    .card-thumb-wrap { aspect-ratio: 3/4; overflow: hidden; position: relative; }
-    .card-thumb {
-      width: 100%; height: 100%; object-fit: cover; display: block;
-      transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
-      background: var(--bg-secondary);
-    }
-    .wallpaper-card:hover .card-thumb { transform: scale(1.06); }
-    .card-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);
-      opacity: 0; pointer-events: none; transition: opacity var(--transition);
-    }
-    .wallpaper-card:hover .card-overlay { opacity: 1; }
-    .card-actions {
-      position: absolute; top: 8px; right: 8px;
-      display: flex; flex-direction: column; gap: 5px;
-      opacity: 0; transform: translateX(6px);
-      transition: opacity var(--transition), transform var(--transition);
-    }
-    .wallpaper-card:hover .card-actions { opacity: 1; transform: none; }
-    .card-action-btn {
       width: 30px; height: 30px;
       display: flex; align-items: center; justify-content: center;
-      background: rgba(0,0,0,0.65); backdrop-filter: blur(8px);
-      border-radius: 50%; border: none; color: #fff;
-      font-size: 0.75rem; cursor: pointer;
-      transition: background var(--transition), transform var(--transition), color var(--transition);
+      background: var(--gold-dim); border: 1px solid var(--border-gold);
+      border-radius: var(--r-sm); cursor: pointer;
+      color: var(--text-2); font-size: 0.85rem;
+      transition: all var(--t);
     }
-    .card-action-btn:hover { background: var(--accent); transform: scale(1.12); }
-    .card-action-btn.favorited { color: var(--accent); }
-    .card-action-btn.favorited:hover { background: rgba(230,63,90,0.3); }
-    .card-info { padding: 9px 10px 10px; }
-    .card-title {
-      font-size: 0.78rem; font-weight: 600; color: var(--text-primary);
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-      letter-spacing: 0.01em;
+    #drawer-close:hover { color: var(--gold); }
+
+    .drawer-sec { padding: 18px 18px 0; }
+    .drawer-sec-title {
+      font-size: 0.62rem; font-weight: 700;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--text-3); margin-bottom: 12px;
     }
-    .card-category { font-size: 0.68rem; color: var(--text-muted); margin-top: 2px; letter-spacing: 0.05em; }
-    .skeleton-card {
-      background: var(--bg-card); border: 1px solid var(--glass-border);
-      border-radius: var(--radius); overflow: hidden;
+
+    /* Sort */
+    .sort-list { display: flex; flex-direction: column; gap: 6px; }
+    .sort-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 9px 12px;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--r-sm); cursor: pointer;
+      transition: all var(--t);
     }
-    .skeleton-card .sk-thumb {
-      aspect-ratio: 3/4;
-      background: linear-gradient(90deg, var(--bg-card) 25%, var(--bg-secondary) 50%, var(--bg-card) 75%);
-      background-size: 200% 100%; animation: shimmer 1.4s infinite;
+    .sort-item:hover, .sort-item.active {
+      background: var(--gold-dim); border-color: var(--border-gold);
     }
-    .skeleton-card .sk-info { padding: 9px 10px 10px; }
-    .sk-line {
-      height: 10px; border-radius: 5px;
-      background: linear-gradient(90deg, var(--bg-card) 25%, var(--bg-secondary) 50%, var(--bg-card) 75%);
-      background-size: 200% 100%; animation: shimmer 1.4s infinite; margin-bottom: 6px;
+    .sort-item input { display: none; }
+    .sort-radio {
+      width: 13px; height: 13px; border-radius: 50%;
+      border: 2px solid var(--text-3); flex-shrink: 0;
+      transition: all var(--t);
     }
-    .sk-line:last-child { width: 55%; margin-bottom: 0; }
-    @keyframes shimmer { to { background-position: -200% 0; } }
-    #pagination {
-      display: flex; justify-content: center; align-items: center;
-      flex-wrap: wrap; gap: 6px; padding: 24px 14px 8px;
+    .sort-item.active .sort-radio { border-color: var(--gold); background: var(--gold); }
+    .sort-item span { font-size: 0.82rem; color: var(--text-2); }
+    .sort-item.active span { color: var(--text); font-weight: 600; }
+
+    /* Source toggles */
+    .src-list { display: flex; flex-direction: column; gap: 6px; }
+    .src-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 9px 12px;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--r-sm);
     }
-    .page-btn {
-      min-width: 36px; height: 36px; padding: 0 12px;
+    .src-label { font-size: 0.82rem; color: var(--text-2); display: flex; align-items: center; gap: 8px; }
+    .src-label i { color: var(--gold); font-size: 0.78rem; }
+
+    /* Category filters */
+    #cat-filters { display: flex; flex-direction: column; gap: 5px; }
+    .cat-item {
+      display: flex; align-items: center; gap: 9px;
+      padding: 8px 12px;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--r-sm); cursor: pointer;
+      transition: all var(--t);
+    }
+    .cat-item:hover { background: var(--card-hover); }
+    .cat-item.active { background: var(--gold-dim); border-color: var(--border-gold); }
+    .cat-item input { display: none; }
+    .cat-box {
+      width: 14px; height: 14px; border-radius: 3px;
+      border: 2px solid var(--text-3); flex-shrink: 0;
       display: flex; align-items: center; justify-content: center;
-      background: var(--bg-card); border: 1px solid var(--glass-border);
-      border-radius: var(--radius-sm); color: var(--text-secondary);
-      font-family: 'Syne', sans-serif; font-size: 0.82rem; cursor: pointer;
-      transition: background var(--transition), color var(--transition), border-color var(--transition);
+      font-size: 0.5rem; color: #000;
+      transition: all var(--t);
     }
-    .page-btn:hover, .page-btn.active {
-      background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 700;
+    .cat-item.active .cat-box { background: var(--gold); border-color: var(--gold); }
+    .cat-item span { font-size: 0.8rem; color: var(--text-2); }
+    .no-cats { font-size: 0.78rem; color: var(--text-3); padding: 4px; }
+
+    #reset-btn {
+      margin: 14px 18px 0; width: calc(100% - 36px); padding: 10px;
+      background: var(--gold-dim); border: 1px solid var(--border-gold);
+      border-radius: var(--r-sm); color: var(--gold);
+      font-family: 'Inter', sans-serif; font-size: 0.8rem;
+      font-weight: 600; cursor: pointer; letter-spacing: 0.05em;
+      transition: background var(--t);
     }
-    .state-message {
+    #reset-btn:hover { background: rgba(201,168,76,0.18); }
+
+    /* Toggle */
+    .tog { position: relative; width: 42px; height: 22px; flex-shrink: 0; }
+    .tog input { display: none; }
+    .tog-track {
+      width: 100%; height: 100%; background: var(--text-3);
+      border-radius: 11px; cursor: pointer; display: block;
+      position: relative; transition: background 0.22s;
+    }
+    .tog input:checked + .tog-track { background: var(--gold); }
+    .tog-track::after {
+      content: ''; position: absolute; top: 2px; left: 2px;
+      width: 18px; height: 18px; border-radius: 50%; background: #fff;
+      transition: transform 0.22s cubic-bezier(0.4,0,0.2,1);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    }
+    .tog input:checked + .tog-track::after { transform: translateX(20px); }
+
+    /* ═══ MAIN ═══ */
+    #main {
+      padding-top: calc(var(--topbar-h) + 14px);
+      padding-bottom: calc(var(--tabbar-h) + 16px);
+      min-height: 100vh; position: relative; z-index: 1;
+    }
+    .page { display: none; padding: 0 10px; }
+    .page.active { display: block; }
+
+    /* ═══ SEARCH ═══ */
+    #search-wrap { padding: 0 10px 8px; position: relative; }
+    #search-input {
+      width: 100%; padding: 10px 16px 10px 36px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(201,168,76,0.12);
+      border-radius: 10px; color: var(--text);
+      font-family: 'Inter', sans-serif; font-size: 0.84rem;
+      outline: none; transition: border-color var(--t), background var(--t);
+    }
+    #search-input:focus { border-color: rgba(201,168,76,0.4); background: rgba(201,168,76,0.03); }
+    #search-input::placeholder { color: var(--text-3); }
+    #search-icon {
+      position: absolute; left: 22px; top: 50%; transform: translateY(-50%);
+      color: var(--text-3); font-size: 0.75rem; pointer-events: none;
+    }
+
+    /* ═══ STATS ═══ */
+    #stats {
+      padding: 2px 10px 10px;
+      display: flex; align-items: center; gap: 6px;
+      font-size: 0.66rem; color: var(--text-3); letter-spacing: 0.03em;
+    }
+    .sdot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+    .sdot.g { background: var(--gold); }
+    .sdot.d { background: var(--text-3); }
+
+    /* ═══ GRID — 3 COLUMNS ═══ */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 7px;
+    }
+    @media (min-width: 600px)  { .grid { grid-template-columns: repeat(4, 1fr); } }
+    @media (min-width: 900px)  { .grid { grid-template-columns: repeat(5, 1fr); } }
+    @media (min-width: 1200px) { .grid { grid-template-columns: repeat(6, 1fr); } }
+    @media (min-width: 1600px) { .grid { grid-template-columns: repeat(8, 1fr); } }
+
+    /* ═══ CARD ═══ */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--r); overflow: hidden;
+      cursor: pointer; position: relative;
+      transition: transform var(--t), border-color var(--t), box-shadow var(--t);
+      animation: fadeUp 0.3s ease both;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px) scale(0.98); }
+      to   { opacity: 1; transform: none; }
+    }
+    .card:hover {
+      transform: translateY(-3px) scale(1.015);
+      border-color: rgba(201,168,76,0.35);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.5), 0 0 0 1px rgba(201,168,76,0.08);
+    }
+    .card:active { transform: scale(0.98); }
+
+    /* Image */
+    .card-img { aspect-ratio: 9/16; overflow: hidden; position: relative; background: var(--bg3); }
+    .card-img::before {
+      content: ''; position: absolute; inset: 0; z-index: 0;
+      background: linear-gradient(135deg, var(--bg3) 0%, var(--bg2) 100%);
+      transition: opacity 0.3s;
+    }
+    .card-img.loaded::before { opacity: 0; }
+    .card-thumb {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      opacity: 0; transition: opacity 0.35s ease, transform 0.35s ease;
+      position: relative; z-index: 1;
+    }
+    .card-thumb.loaded { opacity: 1; }
+    .card:hover .card-thumb { transform: scale(1.06); }
+    .card-overlay {
+      position: absolute; inset: 0; z-index: 2;
+      background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, transparent 50%);
+      opacity: 0; transition: opacity var(--t); pointer-events: none;
+    }
+    .card:hover .card-overlay { opacity: 1; }
+
+    /* Source badge */
+    .src-badge {
+      position: absolute; bottom: 6px; left: 6px; z-index: 3;
+      font-size: 0.46rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 2px 5px; border-radius: 3px;
+      backdrop-filter: blur(8px);
+    }
+    .src-badge.wh { background: rgba(201,168,76,0.18); color: var(--gold); border: 1px solid rgba(201,168,76,0.28); }
+    .src-badge.sb { background: rgba(255,255,255,0.08); color: #aaa9a0; border: 1px solid rgba(255,255,255,0.1); }
+
+    /* Card action buttons */
+    .card-acts {
+      position: absolute; top: 6px; right: 6px; z-index: 3;
+      display: flex; flex-direction: column; gap: 4px;
+      opacity: 0; transform: translateX(5px);
+      transition: opacity var(--t), transform var(--t);
+    }
+    .card:hover .card-acts { opacity: 1; transform: none; }
+    .act {
+      width: 26px; height: 26px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(0,0,0,0.72); backdrop-filter: blur(8px);
+      border-radius: 50%; border: none; color: #fff;
+      font-size: 0.6rem; cursor: pointer;
+      transition: background var(--t), transform var(--t), color var(--t);
+    }
+    .act:hover { background: var(--gold); color: #000; transform: scale(1.12); }
+    .act.faved { color: var(--gold); }
+    .act.faved:hover { background: rgba(201,168,76,0.2); color: var(--gold); }
+
+    /* Card info */
+    .card-info { padding: 6px 7px 8px; }
+    .card-title {
+      font-size: 0.68rem; font-weight: 600; color: var(--text);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .card-cat { font-size: 0.57rem; color: var(--text-3); margin-top: 1px; letter-spacing: 0.05em; text-transform: uppercase; }
+
+    /* ═══ SKELETON ═══ */
+    .skel {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--r); overflow: hidden;
+    }
+    .skel-img {
+      aspect-ratio: 9/16;
+      background: linear-gradient(90deg, var(--bg3) 25%, var(--bg4) 50%, var(--bg3) 75%);
+      background-size: 200% 100%; animation: shimmer 1.5s infinite;
+    }
+    .skel-info { padding: 6px 7px 8px; }
+    .skel-line {
+      height: 9px; border-radius: 4px; margin-bottom: 5px;
+      background: linear-gradient(90deg, var(--bg3) 25%, var(--bg4) 50%, var(--bg3) 75%);
+      background-size: 200% 100%; animation: shimmer 1.5s infinite;
+    }
+    .skel-line:last-child { width: 50%; margin-bottom: 0; }
+    @keyframes shimmer { to { background-position: -200% 0; } }
+
+    /* ═══ PAGINATION ═══ */
+    #pagination {
+      display: flex; justify-content: center; flex-wrap: wrap;
+      align-items: center; gap: 5px; padding: 20px 10px 6px;
+    }
+    .pg-btn {
+      min-width: 34px; height: 34px; padding: 0 10px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--r-sm); color: var(--text-2);
+      font-family: 'Inter', sans-serif; font-size: 0.8rem; cursor: pointer;
+      transition: all var(--t);
+    }
+    .pg-btn:hover, .pg-btn.active {
+      background: var(--gold); border-color: var(--gold); color: #000; font-weight: 700;
+    }
+
+    /* ═══ STATES ═══ */
+    .state {
       display: flex; flex-direction: column; align-items: center;
-      justify-content: center; text-align: center; padding: 60px 20px; gap: 16px;
+      justify-content: center; text-align: center;
+      padding: 60px 20px; gap: 14px;
+      grid-column: 1 / -1;
     }
-    .state-icon { font-size: 3rem; opacity: 0.35; }
-    .state-text { font-size: 1rem; color: var(--text-secondary); font-weight: 500; }
-    .state-sub { font-size: 0.82rem; color: var(--text-muted); }
+    .state-icon { font-size: 2.8rem; opacity: 0.3; }
+    .state-title { font-size: 0.95rem; color: var(--text-2); font-weight: 600; }
+    .state-sub { font-size: 0.78rem; color: var(--text-3); }
     .retry-btn {
-      margin-top: 6px; padding: 10px 28px;
-      background: var(--accent); border: none; border-radius: var(--radius-sm);
-      color: #fff; font-family: 'Syne', sans-serif; font-size: 0.88rem;
-      font-weight: 700; cursor: pointer; letter-spacing: 0.05em;
-      transition: opacity var(--transition), transform var(--transition);
+      margin-top: 4px; padding: 9px 24px;
+      background: var(--gold); border: none; border-radius: var(--r-sm);
+      color: #000; font-family: 'Inter', sans-serif; font-size: 0.84rem;
+      font-weight: 700; cursor: pointer; letter-spacing: 0.04em;
+      transition: opacity var(--t), transform var(--t);
     }
     .retry-btn:hover { opacity: 0.85; transform: translateY(-1px); }
-    #fav-count-badge {
-      display: inline-block; background: var(--accent); color: #fff;
-      font-size: 0.7rem; font-weight: 700; border-radius: 20px;
-      padding: 1px 8px; margin-bottom: 16px;
+
+    /* ═══ FAVORITES COUNT ═══ */
+    #fav-badge {
+      display: inline-block; background: var(--gold); color: #000;
+      font-size: 0.68rem; font-weight: 700; border-radius: 20px;
+      padding: 1px 10px; margin-bottom: 14px;
     }
-    .dl-header {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 4px 0 16px;
+
+    /* ═══ DOWNLOADS HEADER ═══ */
+    .dl-head { display: flex; justify-content: space-between; align-items: center; padding: 4px 0 14px; }
+    .dl-count { font-size: 0.75rem; color: var(--text-3); }
+    .clear-btn {
+      padding: 6px 12px; background: rgba(255,80,80,0.08);
+      border: 1px solid rgba(255,80,80,0.2); border-radius: var(--r-sm);
+      color: #ff6060; font-family: 'Inter', sans-serif;
+      font-size: 0.74rem; font-weight: 600; cursor: pointer;
+      transition: background var(--t);
     }
-    .dl-header-title { font-size: 0.78rem; color: var(--text-muted); }
-    .clear-all-btn {
-      padding: 7px 14px;
-      background: rgba(230,63,90,0.1); border: 1px solid rgba(230,63,90,0.3);
-      border-radius: var(--radius-sm); color: var(--accent);
-      font-family: 'Syne', sans-serif; font-size: 0.78rem; font-weight: 600;
-      cursor: pointer; transition: background var(--transition);
+    .clear-btn:hover { background: rgba(255,80,80,0.16); }
+
+    /* ═══ SETTINGS ═══ */
+    .set-sec {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--r); margin-bottom: 12px; overflow: hidden;
     }
-    .clear-all-btn:hover { background: rgba(230,63,90,0.2); }
-    .settings-section {
-      background: var(--bg-card); border: 1px solid var(--glass-border);
-      border-radius: var(--radius); margin-bottom: 14px; overflow: hidden;
+    .set-sec-title {
+      padding: 10px 16px 7px; font-size: 0.6rem; font-weight: 700;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--text-3); border-bottom: 1px solid var(--border);
     }
-    .settings-section-title {
-      padding: 12px 18px 8px; font-size: 0.68rem; font-weight: 700;
-      letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--text-muted); border-bottom: 1px solid var(--glass-border);
-    }
-    .settings-row {
+    .set-row {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 14px 18px; border-bottom: 1px solid var(--glass-border);
+      padding: 13px 16px; border-bottom: 1px solid var(--border);
     }
-    .settings-row:last-child { border-bottom: none; }
-    .settings-row-left { display: flex; flex-direction: column; gap: 2px; }
-    .settings-row-label { font-size: 0.9rem; font-weight: 600; color: var(--text-primary); }
-    .settings-row-desc { font-size: 0.76rem; color: var(--text-muted); }
-    .toggle-wrap { position: relative; width: 44px; height: 24px; flex-shrink: 0; }
-    .toggle-wrap input { display: none; }
-    .toggle-track {
-      width: 100%; height: 100%; background: var(--text-muted);
-      border-radius: 12px; cursor: pointer; transition: background 0.25s;
-      display: block; position: relative;
+    .set-row:last-child { border-bottom: none; }
+    .set-row-l { display: flex; flex-direction: column; gap: 2px; }
+    .set-label { font-size: 0.86rem; font-weight: 600; color: var(--text); }
+    .set-desc { font-size: 0.72rem; color: var(--text-3); }
+    .set-select {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--r-sm); color: var(--text);
+      font-family: 'Inter', sans-serif; font-size: 0.8rem;
+      padding: 6px 10px; cursor: pointer; outline: none;
     }
-    .toggle-wrap input:checked + .toggle-track { background: var(--accent); }
-    .toggle-track::after {
-      content: ''; position: absolute; top: 3px; left: 3px;
-      width: 18px; height: 18px; border-radius: 50%; background: #fff;
-      transition: transform 0.25s cubic-bezier(0.4,0,0.2,1);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-    }
-    .toggle-wrap input:checked + .toggle-track::after { transform: translateX(20px); }
-    .settings-select {
-      background: var(--bg-secondary); border: 1px solid var(--glass-border);
-      border-radius: var(--radius-sm); color: var(--text-primary);
-      font-family: 'Syne', sans-serif; font-size: 0.84rem;
-      padding: 7px 10px; cursor: pointer; outline: none;
-    }
-    .settings-btn {
-      display: flex; align-items: center; gap: 12px; padding: 14px 18px;
-      border-bottom: 1px solid var(--glass-border); cursor: pointer;
-      background: none; color: var(--text-secondary);
-      font-family: 'Syne', sans-serif; font-size: 0.9rem;
+    .set-btn {
+      display: flex; align-items: center; gap: 12px; padding: 13px 16px;
+      border-bottom: 1px solid var(--border); cursor: pointer;
+      background: none; color: var(--text-2);
+      font-family: 'Inter', sans-serif; font-size: 0.86rem;
       font-weight: 500; width: 100%; text-align: left;
-      transition: background var(--transition), color var(--transition);
+      transition: background var(--t), color var(--t);
     }
-    .settings-btn:last-child { border-bottom: none; }
-    .settings-btn:hover { background: var(--bg-card-hover); color: var(--text-primary); }
-    .settings-btn .btn-icon {
-      width: 32px; height: 32px; display: flex; align-items: center;
-      justify-content: center; background: var(--glass);
-      border-radius: var(--radius-sm); font-size: 0.88rem;
-      color: var(--accent); flex-shrink: 0;
+    .set-btn:last-child { border-bottom: none; }
+    .set-btn:hover { background: var(--card-hover); color: var(--text); }
+    .set-icon {
+      width: 30px; height: 30px; display: flex; align-items: center;
+      justify-content: center; background: var(--gold-dim);
+      border-radius: var(--r-sm); font-size: 0.84rem;
+      color: var(--gold); flex-shrink: 0;
     }
-    .settings-btn .chevron { margin-left: auto; color: var(--text-muted); font-size: 0.75rem; }
-    .version-badge {
-      text-align: center; padding: 20px; font-size: 0.72rem;
-      color: var(--text-muted); letter-spacing: 0.1em;
-    }
+    .set-chevron { margin-left: auto; color: var(--text-3); font-size: 0.7rem; }
+    .version { text-align: center; padding: 18px; font-size: 0.68rem; color: var(--text-3); letter-spacing: 0.1em; }
+
+    /* ═══ TABBAR ═══ */
     #tabbar {
       position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
-      height: var(--tabbar-h); display: grid; grid-template-columns: repeat(4,1fr);
-      background: rgba(7,7,16,0.92);
-      backdrop-filter: blur(20px) saturate(180%);
-      border-top: 1px solid var(--glass-border);
+      height: var(--tabbar-h);
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      background: rgba(10,10,10,0.96);
+      backdrop-filter: blur(28px);
+      border-top: 1px solid rgba(201,168,76,0.1);
     }
-    [data-theme="light"] #tabbar { background: rgba(244,244,249,0.92); }
-    .tab-btn {
+    [data-theme="light"] #tabbar { background: rgba(245,243,238,0.96); }
+    .tab {
       display: flex; flex-direction: column; align-items: center;
-      justify-content: center; gap: 4px; cursor: pointer;
-      background: none; border: none; color: var(--text-muted);
-      transition: color var(--transition); position: relative;
+      justify-content: center; gap: 3px; cursor: pointer;
+      background: none; border: none; color: var(--text-3);
+      transition: color var(--t); position: relative;
     }
-    .tab-btn::before {
-      content: ''; position: absolute; top: 0; left: 25%; right: 25%;
-      height: 2px; border-radius: 0 0 2px 2px; background: var(--accent);
-      transform: scaleX(0); transition: transform 0.25s cubic-bezier(0.4,0,0.2,1);
+    .tab::before {
+      content: ''; position: absolute; top: 0; left: 28%; right: 28%;
+      height: 2px; background: var(--gold);
+      border-radius: 0 0 3px 3px;
+      box-shadow: 0 0 8px var(--gold-glow);
+      transform: scaleX(0);
+      transition: transform 0.22s cubic-bezier(0.4,0,0.2,1);
     }
-    .tab-btn.active { color: var(--accent); }
-    .tab-btn.active::before { transform: scaleX(1); }
-    .tab-btn i { font-size: 1.1rem; }
-    .tab-label { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
+    .tab.active { color: var(--gold); }
+    .tab.active::before { transform: scaleX(1); }
+    .tab i { font-size: 1rem; }
+    .tab-lbl { font-size: 0.56rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+
+    /* ═══ MODAL ═══ */
     #modal-overlay {
       position: fixed; inset: 0; z-index: 500;
-      background: rgba(0,0,0,0.88); backdrop-filter: blur(8px);
-      display: flex; align-items: center; justify-content: center; padding: 16px;
-      opacity: 0; pointer-events: none; transition: opacity 0.28s ease;
+      background: rgba(0,0,0,0.9); backdrop-filter: blur(10px);
+      display: flex; align-items: center; justify-content: center; padding: 14px;
+      opacity: 0; pointer-events: none; transition: opacity 0.25s;
     }
     #modal-overlay.open { opacity: 1; pointer-events: all; }
     #modal {
-      background: rgba(12,12,24,0.97); border: 1px solid var(--glass-border);
-      border-radius: 20px; width: 100%; max-width: 480px;
+      background: #0e0e0e; border: 1px solid rgba(201,168,76,0.15);
+      border-radius: 16px; width: 100%; max-width: 440px;
       max-height: 90vh; overflow-y: auto;
-      transform: scale(0.94) translateY(16px);
-      transition: transform 0.28s cubic-bezier(0.4,0,0.2,1); position: relative;
+      transform: scale(0.93) translateY(18px);
+      transition: transform 0.25s cubic-bezier(0.4,0,0.2,1);
     }
-    [data-theme="light"] #modal { background: rgba(240,240,248,0.98); }
+    [data-theme="light"] #modal { background: #f0ece2; }
     #modal-overlay.open #modal { transform: none; }
-    #modal-img-wrap { width: 100%; aspect-ratio: 3/4; overflow: hidden; border-radius: 16px 16px 0 0; position: relative; }
-    #modal-img { width: 100%; height: 100%; object-fit: cover; display: block; background: var(--bg-secondary); }
-    #modal-body { padding: 16px 18px; }
-    #modal-title { font-family: 'Orbitron', monospace; font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; }
-    #modal-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 18px; }
-    #modal-category { font-size: 0.78rem; color: var(--text-muted); letter-spacing: 0.08em; }
-    #modal-source-badge { font-size: 0.65rem; font-weight: 700; padding: 2px 8px; border-radius: 4px; }
-    #modal-source-badge.wallhaven { background: rgba(124,58,237,0.2); color: #a78bfa; border: 1px solid rgba(124,58,237,0.3); }
-    #modal-source-badge.supabase  { background: rgba(230,63,90,0.2);  color: #f87091; border: 1px solid rgba(230,63,90,0.3); }
-    #modal-actions { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
-    .modal-btn {
+    #modal-img-wrap { width: 100%; aspect-ratio: 9/16; overflow: hidden; border-radius: 12px 12px 0 0; position: relative; }
+    #modal-img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0; transition: opacity 0.3s; background: var(--bg3); }
+    #modal-img.loaded { opacity: 1; }
+    #modal-body { padding: 14px 16px; }
+    #modal-title { font-family: 'Orbitron', monospace; font-size: 0.9rem; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+    #modal-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; }
+    #modal-cat { font-size: 0.72rem; color: var(--text-3); letter-spacing: 0.08em; text-transform: uppercase; }
+    #modal-src { font-size: 0.6rem; font-weight: 700; padding: 2px 7px; border-radius: 4px; }
+    #modal-src.wh { background: rgba(201,168,76,0.14); color: var(--gold); border: 1px solid rgba(201,168,76,0.25); }
+    #modal-src.sb { background: rgba(255,255,255,0.06); color: #aaa; border: 1px solid rgba(255,255,255,0.1); }
+    #modal-actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; }
+    .m-btn {
       display: flex; flex-direction: column; align-items: center;
-      justify-content: center; gap: 5px; padding: 12px 8px;
-      background: var(--glass); border: 1px solid var(--glass-border);
-      border-radius: var(--radius-sm); color: var(--text-secondary);
-      font-family: 'Syne', sans-serif; font-size: 0.7rem;
+      justify-content: center; gap: 4px; padding: 11px 6px;
+      background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+      border-radius: var(--r-sm); color: var(--text-2);
+      font-family: 'Inter', sans-serif; font-size: 0.65rem;
       font-weight: 600; cursor: pointer; letter-spacing: 0.04em;
       text-transform: uppercase;
-      transition: background var(--transition), color var(--transition), border-color var(--transition), transform var(--transition);
+      transition: all var(--t);
     }
-    .modal-btn:hover { background: var(--bg-card-hover); color: var(--text-primary); transform: translateY(-1px); }
-    .modal-btn i { font-size: 1rem; }
-    .modal-btn.fav-active { color: var(--accent); border-color: rgba(230,63,90,0.4); background: rgba(230,63,90,0.1); }
-    .modal-btn.back-btn { background: rgba(230,63,90,0.1); border-color: rgba(230,63,90,0.3); color: var(--accent); }
+    .m-btn:hover { background: var(--card-hover); color: var(--text); transform: translateY(-1px); }
+    .m-btn i { font-size: 0.95rem; }
+    .m-btn.gold-btn { background: var(--gold-dim); border-color: var(--border-gold); color: var(--gold); }
+    .m-btn.gold-btn:hover { background: rgba(201,168,76,0.2); }
+    .m-btn.fav-on { color: var(--gold); border-color: var(--border-gold); background: var(--gold-dim); }
+
+    /* ═══ TOAST ═══ */
     #toast-container {
-      position: fixed; bottom: calc(var(--tabbar-h) + 16px);
+      position: fixed; bottom: calc(var(--tabbar-h) + 14px);
       left: 50%; transform: translateX(-50%); z-index: 1000;
       display: flex; flex-direction: column; align-items: center;
-      gap: 8px; pointer-events: none;
+      gap: 6px; pointer-events: none;
     }
     .toast {
-      padding: 10px 20px; background: rgba(20,20,36,0.95);
-      border: 1px solid var(--glass-border); border-radius: 30px;
-      color: var(--text-primary); font-size: 0.82rem; font-weight: 600;
+      padding: 9px 18px; background: rgba(18,18,14,0.96);
+      border: 1px solid rgba(201,168,76,0.18); border-radius: 24px;
+      color: var(--text); font-size: 0.78rem; font-weight: 600;
       backdrop-filter: blur(20px); white-space: nowrap;
-      animation: toastIn 0.3s ease, toastOut 0.3s ease 2.4s forwards;
+      animation: tIn 0.28s ease, tOut 0.28s ease 2.4s forwards;
     }
-    @keyframes toastIn  { from { opacity:0; transform:translateY(10px) scale(0.95); } to { opacity:1; transform:none; } }
-    @keyframes toastOut { to   { opacity:0; transform:translateY(-6px) scale(0.95); } }
-    #scroll-sentinel { height: 1px; margin-top: 20px; }
-    #load-more-spinner {
-      display: none; padding: 20px;
+    @keyframes tIn  { from { opacity:0; transform:translateY(8px) scale(0.94); } to { opacity:1; transform:none; } }
+    @keyframes tOut { to   { opacity:0; transform:translateY(-6px) scale(0.94); } }
+
+    /* ═══ SCROLL SENTINEL / SPINNER ═══ */
+    #sentinel { height: 1px; margin-top: 18px; }
+    #spinner {
+      display: none; padding: 18px;
       justify-content: center; align-items: center; gap: 8px;
-      color: var(--text-muted); font-size: 0.8rem;
+      color: var(--text-3); font-size: 0.76rem;
     }
-    #load-more-spinner.active { display: flex; }
-    .spinner {
-      width: 20px; height: 20px; border: 2px solid var(--glass-border);
-      border-top-color: var(--accent); border-radius: 50%;
-      animation: spin 0.75s linear infinite;
+    #spinner.on { display: flex; }
+    .spin {
+      width: 18px; height: 18px; border: 2px solid var(--border);
+      border-top-color: var(--gold); border-radius: 50%;
+      animation: spinning 0.7s linear infinite;
     }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    ::-webkit-scrollbar { width: 4px; }
+    @keyframes spinning { to { transform: rotate(360deg); } }
+
+    /* ═══ INSTALL BANNER ═══ */
+    #install-banner {
+      display: none;
+      position: fixed; bottom: calc(var(--tabbar-h) + 10px);
+      left: 10px; right: 10px; z-index: 90;
+      background: #0e0e0e; border: 1px solid var(--border-gold);
+      border-radius: var(--r); padding: 12px 14px;
+      backdrop-filter: blur(24px);
+      animation: slideUp 0.3s ease;
+    }
+    @keyframes slideUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:none; } }
+    #install-banner.show { display: flex; align-items: center; gap: 10px; }
+    .banner-txt { flex: 1; }
+    .banner-title { font-size: 0.84rem; font-weight: 700; color: var(--text); }
+    .banner-sub { font-size: 0.68rem; color: var(--text-3); margin-top: 1px; }
+    #inst-btn {
+      padding: 7px 14px; background: var(--gold); border: none;
+      border-radius: var(--r-sm); color: #000;
+      font-family: 'Inter', sans-serif; font-size: 0.74rem;
+      font-weight: 700; cursor: pointer; white-space: nowrap;
+      transition: opacity var(--t);
+    }
+    #inst-btn:hover { opacity: 0.85; }
+    #inst-dismiss {
+      width: 26px; height: 26px; display: flex; align-items: center;
+      justify-content: center; background: var(--card);
+      border: 1px solid var(--border); border-radius: 50%;
+      cursor: pointer; color: var(--text-3); font-size: 0.7rem; flex-shrink: 0;
+    }
+
+    /* ═══ SCROLLBAR ═══ */
+    ::-webkit-scrollbar { width: 3px; }
     ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: var(--text-secondary); }
-    #auto-changer-badge {
-      display: none; position: fixed;
-      top: calc(var(--topbar-h) + 10px); right: 14px;
-      background: rgba(230,63,90,0.15); border: 1px solid rgba(230,63,90,0.4);
-      border-radius: 20px; padding: 4px 12px;
-      font-size: 0.7rem; color: var(--accent); font-weight: 700;
-      letter-spacing: 0.06em; z-index: 90;
-    }
-    #auto-changer-badge.active { display: block; }
+    ::-webkit-scrollbar-thumb { background: var(--text-3); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
     @media (min-width: 768px) {
-      #modal { max-width: 520px; }
-      #modal-img-wrap { aspect-ratio: 16/9; }
+      #modal { max-width: 480px; }
+      #modal-img-wrap { aspect-ratio: 3/4; }
     }
     @media (prefers-color-scheme: light) {
       html[data-theme="system"] {
-        --bg-primary: #f4f4f9; --bg-secondary: #e9e9f3;
-        --bg-card: rgba(0,0,0,0.04); --bg-card-hover: rgba(0,0,0,0.08);
-        --glass: rgba(0,0,0,0.04); --glass-border: rgba(0,0,0,0.1);
-        --text-primary: #111122; --text-secondary: #444466; --text-muted: #888899;
+        --bg:#f5f3ee;--bg2:#ede9e0;--bg3:#e4dfd4;--bg4:#d8d2c6;
+        --card:rgba(0,0,0,0.04);--card-hover:rgba(0,0,0,0.07);
+        --border:rgba(0,0,0,0.08);--border-gold:rgba(180,140,40,0.3);
+        --gold:#a07828;--gold-bright:#c89a30;--gold-glow:rgba(160,120,40,0.3);
+        --gold-dim:rgba(160,120,40,0.08);
+        --text:#1a1810;--text-2:#6a6458;--text-3:#aaa090;
       }
     }
   </style>
 </head>
 <body>
 
-  <div id="topbar">
-    <button id="hamburger-btn" aria-label="Open filters">
-      <i class="fa-solid fa-sliders"></i>
-    </button>
-    <div id="topbar-logo">wall<span>-ANI</span></div>
-    <div id="page-title">HOME</div>
+<!-- TOPBAR -->
+<div id="topbar">
+  <button class="icon-btn" id="hamburger" aria-label="Filter"><i class="fa-solid fa-sliders"></i></button>
+  <div id="topbar-logo">wall<span>-ANI</span></div>
+  <div id="page-title">HOME</div>
+</div>
+
+<div id="auto-badge">⟳ AUTO</div>
+<div id="drawer-overlay"></div>
+
+<!-- DRAWER -->
+<div id="drawer" role="dialog" aria-label="Sort and filter">
+  <div id="drawer-header">
+    <span class="drawer-title">FILTER & SORT</span>
+    <button id="drawer-close" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <div class="drawer-sec">
+    <div class="drawer-sec-title">Sort By</div>
+    <div class="sort-list" id="sort-list">
+      <label class="sort-item active" data-sort="newest"><input type="radio" name="sort" value="newest" checked/><div class="sort-radio"></div><span>Newest First</span></label>
+      <label class="sort-item" data-sort="oldest"><input type="radio" name="sort" value="oldest"/><div class="sort-radio"></div><span>Oldest First</span></label>
+      <label class="sort-item" data-sort="random"><input type="radio" name="sort" value="random"/><div class="sort-radio"></div><span>Shuffle</span></label>
+    </div>
+  </div>
+  <div class="drawer-sec" style="margin-top:18px;">
+    <div class="drawer-sec-title">Sources</div>
+    <div class="src-list">
+      <div class="src-item"><span class="src-label"><i class="fa-solid fa-globe"></i>Wallhaven</span><label class="tog"><input type="checkbox" id="tog-wh" checked/><span class="tog-track"></span></label></div>
+      <div class="src-item"><span class="src-label"><i class="fa-solid fa-database"></i>My Collection</span><label class="tog"><input type="checkbox" id="tog-sb" checked/><span class="tog-track"></span></label></div>
+    </div>
+  </div>
+  <div class="drawer-sec" style="margin-top:18px;">
+    <div class="drawer-sec-title">Categories</div>
+    <div id="cat-filters"><div class="no-cats">Load wallpapers to see categories</div></div>
+  </div>
+  <button id="reset-btn"><i class="fa-solid fa-rotate-left" style="margin-right:5px;"></i>Reset Filters</button>
+</div>
+
+<!-- MAIN -->
+<div id="main">
+
+  <!-- HOME -->
+  <div id="pg-home" class="page active">
+    <div id="search-wrap">
+      <i class="fa-solid fa-magnifying-glass" id="search-icon"></i>
+      <input type="text" id="search-input" placeholder="Search anime, character, series…" autocomplete="off" spellcheck="false"/>
+    </div>
+    <div id="stats"></div>
+    <div id="home-grid" class="grid"></div>
+    <div id="spinner"><div class="spin"></div> Loading…</div>
+    <div id="pagination"></div>
+    <div id="sentinel"></div>
   </div>
 
-  <div id="auto-changer-badge">⟳ AUTO</div>
-  <div id="drawer-overlay"></div>
-
-  <div id="drawer" role="dialog" aria-label="Sort and filter">
-    <div id="drawer-header">
-      <span class="drawer-title">FILTER & SORT</span>
-      <button id="drawer-close" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
-    </div>
-    <div class="drawer-section">
-      <div class="drawer-section-title">Sort By</div>
-      <div class="sort-options" id="sort-options">
-        <label class="sort-option active" data-sort="newest">
-          <input type="radio" name="sort" value="newest" checked />
-          <div class="sort-dot"></div><span>Newest First</span>
-        </label>
-        <label class="sort-option" data-sort="oldest">
-          <input type="radio" name="sort" value="oldest" />
-          <div class="sort-dot"></div><span>Oldest First</span>
-        </label>
-        <label class="sort-option" data-sort="random">
-          <input type="radio" name="sort" value="random" />
-          <div class="sort-dot"></div><span>Random</span>
-        </label>
-      </div>
-    </div>
-    <div class="drawer-section" style="margin-top:20px;">
-      <div class="drawer-section-title">Sources</div>
-      <div class="source-toggles">
-        <div class="source-toggle-item">
-          <span class="source-toggle-label"><i class="fa-solid fa-globe"></i> Wallhaven</span>
-          <label class="toggle-wrap">
-            <input type="checkbox" id="toggle-wallhaven" checked />
-            <span class="toggle-track"></span>
-          </label>
-        </div>
-        <div class="source-toggle-item">
-          <span class="source-toggle-label"><i class="fa-solid fa-database"></i> My Collection</span>
-          <label class="toggle-wrap">
-            <input type="checkbox" id="toggle-supabase" checked />
-            <span class="toggle-track"></span>
-          </label>
-        </div>
-      </div>
-    </div>
-    <div class="drawer-section" style="margin-top:20px;">
-      <div class="drawer-section-title">Categories</div>
-      <div id="category-filters"><div class="no-cats">Load wallpapers to see categories</div></div>
-    </div>
-    <button id="reset-filters-btn">
-      <i class="fa-solid fa-rotate-left" style="margin-right:6px;"></i> Reset Filters
-    </button>
+  <!-- FAVORITES -->
+  <div id="pg-favorites" class="page">
+    <div id="fav-grid" class="grid"></div>
   </div>
 
-  <div id="main">
-
-    <!-- HOME -->
-    <div id="page-home" class="page active-page">
-      <div id="search-wrap">
-        <i class="fa-solid fa-magnifying-glass" id="search-icon"></i>
-        <input type="text" id="search-input" placeholder="Search anime, character…" autocomplete="off" spellcheck="false" />
-      </div>
-      <div id="stats-bar"></div>
-      <div id="home-grid" class="wallpaper-grid"></div>
-      <div id="load-more-spinner"><div class="spinner"></div> Loading more…</div>
-      <div id="pagination"></div>
-      <div id="scroll-sentinel"></div>
+  <!-- DOWNLOADS -->
+  <div id="pg-downloads" class="page">
+    <div class="dl-head">
+      <span class="dl-count" id="dl-count">0 items</span>
+      <button class="clear-btn" id="clear-btn"><i class="fa-solid fa-trash-can" style="margin-right:4px;"></i>Clear All</button>
     </div>
-
-    <!-- FAVORITES -->
-    <div id="page-favorites" class="page">
-      <div id="fav-grid" class="wallpaper-grid"></div>
-    </div>
-
-    <!-- DOWNLOADS -->
-    <div id="page-downloads" class="page">
-      <div class="dl-header">
-        <span class="dl-header-title" id="dl-count-label">0 items</span>
-        <button class="clear-all-btn" id="clear-downloads-btn">
-          <i class="fa-solid fa-trash-can" style="margin-right:5px;"></i>Clear All
-        </button>
-      </div>
-      <div id="dl-grid" class="wallpaper-grid"></div>
-    </div>
-
-    <!-- SETTINGS -->
-    <div id="page-settings" class="page">
-      <div class="settings-section">
-        <div class="settings-section-title">Preferences</div>
-        <div class="settings-row">
-          <div class="settings-row-left">
-            <span class="settings-row-label">Auto Wallpaper Changer</span>
-            <span class="settings-row-desc">Rotate wallpapers every 30 seconds</span>
-          </div>
-          <label class="toggle-wrap"><input type="checkbox" id="toggle-auto" /><span class="toggle-track"></span></label>
-        </div>
-        <div class="settings-row">
-          <div class="settings-row-left">
-            <span class="settings-row-label">Theme</span>
-            <span class="settings-row-desc">App appearance</span>
-          </div>
-          <select class="settings-select" id="theme-select">
-            <option value="dark">Dark</option>
-            <option value="light">Light</option>
-            <option value="system">System</option>
-          </select>
-        </div>
-        <div class="settings-row">
-          <div class="settings-row-left">
-            <span class="settings-row-label">Page Indicators</span>
-            <span class="settings-row-desc">Show pages (off = infinite scroll)</span>
-          </div>
-          <label class="toggle-wrap"><input type="checkbox" id="toggle-pagination" checked /><span class="toggle-track"></span></label>
-        </div>
-      </div>
-      <div class="settings-section">
-        <div class="settings-section-title">General</div>
-        <button class="settings-btn" id="btn-rate"><span class="btn-icon"><i class="fa-solid fa-star"></i></span>Rate Us<i class="fa-solid fa-chevron-right chevron"></i></button>
-        <button class="settings-btn" id="btn-share"><span class="btn-icon"><i class="fa-solid fa-share-nodes"></i></span>Share App<i class="fa-solid fa-chevron-right chevron"></i></button>
-        <button class="settings-btn" id="btn-privacy"><span class="btn-icon"><i class="fa-solid fa-shield-halved"></i></span>Privacy Policy<i class="fa-solid fa-chevron-right chevron"></i></button>
-        <button class="settings-btn" id="btn-about"><span class="btn-icon"><i class="fa-solid fa-circle-info"></i></span>About wall-ANI<i class="fa-solid fa-chevron-right chevron"></i></button>
-      </div>
-      <div class="version-badge">wall-ANI · v4.0.0 · Built with ❤️</div>
-    </div>
-
+    <div id="dl-grid" class="grid"></div>
   </div>
 
-  <nav id="tabbar" aria-label="Main navigation">
-    <button class="tab-btn active" data-page="home"><i class="fa-solid fa-house"></i><span class="tab-label">Home</span></button>
-    <button class="tab-btn" data-page="favorites"><i class="fa-solid fa-star"></i><span class="tab-label">Favorites</span></button>
-    <button class="tab-btn" data-page="downloads"><i class="fa-solid fa-download"></i><span class="tab-label">Downloaded</span></button>
-    <button class="tab-btn" data-page="settings"><i class="fa-solid fa-gear"></i><span class="tab-label">Settings</span></button>
-  </nav>
+  <!-- SETTINGS -->
+  <div id="pg-settings" class="page">
+    <div class="set-sec">
+      <div class="set-sec-title">Preferences</div>
+      <div class="set-row"><div class="set-row-l"><span class="set-label">Auto Wallpaper Changer</span><span class="set-desc">Rotate wallpapers every 30s</span></div><label class="tog"><input type="checkbox" id="tog-auto"/><span class="tog-track"></span></label></div>
+      <div class="set-row"><div class="set-row-l"><span class="set-label">Theme</span><span class="set-desc">App appearance</span></div><select class="set-select" id="theme-sel"><option value="dark">Dark</option><option value="light">Light</option><option value="system">System</option></select></div>
+      <div class="set-row"><div class="set-row-l"><span class="set-label">Page Indicators</span><span class="set-desc">Numbered pages vs infinite scroll</span></div><label class="tog"><input type="checkbox" id="tog-pag" checked/><span class="tog-track"></span></label></div>
+    </div>
+    <div class="set-sec">
+      <div class="set-sec-title">App</div>
+      <button class="set-btn" id="btn-rate"><span class="set-icon"><i class="fa-solid fa-star"></i></span>Rate wall-ANI<i class="fa-solid fa-chevron-right set-chevron"></i></button>
+      <button class="set-btn" id="btn-share"><span class="set-icon"><i class="fa-solid fa-share-nodes"></i></span>Share App<i class="fa-solid fa-chevron-right set-chevron"></i></button>
+      <button class="set-btn" id="btn-privacy"><span class="set-icon"><i class="fa-solid fa-shield-halved"></i></span>Privacy Policy<i class="fa-solid fa-chevron-right set-chevron"></i></button>
+      <button class="set-btn" id="btn-about"><span class="set-icon"><i class="fa-solid fa-circle-info"></i></span>About wall-ANI<i class="fa-solid fa-chevron-right set-chevron"></i></button>
+    </div>
+    <div class="version">wall-ANI · v5.0.0 · Built with ❤️</div>
+  </div>
 
-  <div id="modal-overlay" role="dialog" aria-modal="true" aria-label="Wallpaper preview">
-    <div id="modal">
-      <div id="modal-img-wrap">
-        <img id="modal-img" src="" alt="Wallpaper preview" loading="lazy" />
-      </div>
-      <div id="modal-body">
-        <div id="modal-title">—</div>
-        <div id="modal-meta">
-          <div id="modal-category">—</div>
-          <div id="modal-source-badge"></div>
-        </div>
-        <div id="modal-actions">
-          <button class="modal-btn back-btn" id="modal-back"><i class="fa-solid fa-arrow-left"></i> Back</button>
-          <button class="modal-btn" id="modal-share"><i class="fa-solid fa-share-nodes"></i> Share</button>
-          <button class="modal-btn" id="modal-download"><i class="fa-solid fa-download"></i> Save</button>
-          <button class="modal-btn" id="modal-view"><i class="fa-solid fa-arrow-up-right-from-square"></i> View</button>
-          <button class="modal-btn" id="modal-fav"><i class="fa-regular fa-heart"></i> Like</button>
-          <button class="modal-btn" id="modal-apply"><i class="fa-solid fa-wand-magic-sparkles"></i> Apply</button>
-        </div>
+</div>
+
+<!-- PWA INSTALL BANNER -->
+<div id="install-banner">
+  <div class="banner-txt"><div class="banner-title">Install wall-ANI</div><div class="banner-sub">Add to home screen for the best experience</div></div>
+  <button id="inst-btn">Install</button>
+  <button id="inst-dismiss"><i class="fa-solid fa-xmark"></i></button>
+</div>
+
+<!-- TABBAR -->
+<nav id="tabbar" aria-label="Navigation">
+  <button class="tab active" data-pg="home"><i class="fa-solid fa-house"></i><span class="tab-lbl">Home</span></button>
+  <button class="tab" data-pg="favorites"><i class="fa-solid fa-star"></i><span class="tab-lbl">Favorites</span></button>
+  <button class="tab" data-pg="downloads"><i class="fa-solid fa-download"></i><span class="tab-lbl">Downloads</span></button>
+  <button class="tab" data-pg="settings"><i class="fa-solid fa-gear"></i><span class="tab-lbl">Settings</span></button>
+</nav>
+
+<!-- MODAL -->
+<div id="modal-overlay" role="dialog" aria-modal="true">
+  <div id="modal">
+    <div id="modal-img-wrap"><img id="modal-img" src="" alt="Wallpaper"/></div>
+    <div id="modal-body">
+      <div id="modal-title">—</div>
+      <div id="modal-meta"><div id="modal-cat">—</div><div id="modal-src"></div></div>
+      <div id="modal-actions">
+        <button class="m-btn gold-btn" id="m-back"><i class="fa-solid fa-arrow-left"></i>Back</button>
+        <button class="m-btn" id="m-share"><i class="fa-solid fa-share-nodes"></i>Share</button>
+        <button class="m-btn" id="m-dl"><i class="fa-solid fa-download"></i>Save</button>
+        <button class="m-btn" id="m-view"><i class="fa-solid fa-arrow-up-right-from-square"></i>View</button>
+        <button class="m-btn" id="m-fav"><i class="fa-regular fa-heart"></i>Like</button>
+        <button class="m-btn" id="m-apply"><i class="fa-solid fa-wand-magic-sparkles"></i>Apply</button>
       </div>
     </div>
   </div>
+</div>
 
-  <div id="toast-container"></div>
+<div id="toast-container"></div>
 
-  <script>
-  'use strict';
-  (function () {
+<script>
+'use strict';
+(function(){
+  /* ── CONSTANTS ── */
+  const API='/api/combined',LIMIT=20,AUTO_MS=30000;
+  let sTimer=null;
 
-    // ── CONSTANTS ────────────────────────────────────────────────────
-    const API_BASE            = '/api/combined';
-    const LIMIT               = 20;
-    const AUTO_INTERVAL       = 30_000;
-    let   searchDebounceTimer = null;
+  /* ── STATE ── */
+  let S={
+    pg:'home',sort:'newest',catFilters:[],cats:[],
+    wps:[],filtered:[],apiPg:1,total:0,pages:1,
+    fetching:false,hasMore:true,pagination:true,
+    auto:false,theme:'dark',autoTimer:null,modal:null,
+    q:'',useWH:true,useSB:true,srcs:{wallhaven:0,supabase:0}
+  };
 
-    // ── STATE ────────────────────────────────────────────────────────
-    let state = {
-      currentPage: 'home',
-      currentSort: 'newest',
-      activeCategoryFilters: [],
-      allCategories: [],
-      wallpapers: [],
-      filteredWallpapers: [],
-      currentApiPage: 1,
-      totalCount: 0,
-      totalPages: 1,
-      isFetching: false,
-      hasMore: true,
-      paginationIndicators: true,
-      autoChanger: false,
-      theme: 'dark',
-      autoChangerTimer: null,
-      currentModal: null,
-      searchQuery: '',
-      useWallhaven: true,
-      useSupabase: true,
-      lastSources: { wallhaven: 0, supabase: 0 },
-    };
+  /* ── LOCAL STORAGE ── */
+  const LS={
+    g:(k,f=null)=>{try{const v=localStorage.getItem(k);return v?JSON.parse(v):f;}catch{return f;}},
+    s:(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));}catch{}}
+  };
+  const gFavs=()=>LS.g('wani_v5_favs',[]);
+  const sFavs=v=>LS.s('wani_v5_favs',v);
+  const gDls=()=>LS.g('wani_v5_dls',[]);
+  const sDls=v=>LS.s('wani_v5_dls',v);
+  const gSet=()=>LS.g('wani_v5_set',{auto:false,theme:'dark',pagination:true});
+  const saveSet=()=>LS.s('wani_v5_set',{auto:S.auto,theme:S.theme,pagination:S.pagination});
 
-    // ── STORAGE ──────────────────────────────────────────────────────
-    const LS = {
-      get: (key, fallback = null) => {
-        try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; } catch { return fallback; }
-      },
-      set: (key, val) => { try { localStorage.setItem(key, JSON.stringify(val)); } catch {} },
-    };
+  /* ── FAVORITES ── */
+  const isFav=id=>gFavs().some(f=>f.id===id);
+  const togFav=w=>{
+    const favs=gFavs();
+    const i=favs.findIndex(f=>f.id===w.id);
+    if(i>=0){favs.splice(i,1);toast('Removed from favorites');}
+    else{favs.push({id:w.id,title:w.title,image_url:w.image_url,thumbnail_url:w.thumbnail_url,category:w.category,source:w.source});toast('Added to favorites ✦');}
+    sFavs(favs);return i<0;
+  };
 
-    const getFavorites  = ()  => LS.get('wani_favorites', []);
-    const setFavorites  = (v) => LS.set('wani_favorites', v);
-    const getDownloads  = ()  => LS.get('wani_downloads', []);
-    const setDownloads  = (v) => LS.set('wani_downloads', v);
-    const getSettings   = ()  => LS.get('wani_settings', { autoChanger: false, theme: 'dark', paginationIndicators: true });
-    const saveSettings  = ()  => LS.set('wani_settings', {
-      autoChanger: state.autoChanger,
-      theme: state.theme,
-      paginationIndicators: state.paginationIndicators,
+  /* ── TOAST ── */
+  const toast=msg=>{
+    const el=document.createElement('div');el.className='toast';el.textContent=msg;
+    document.getElementById('toast-container').appendChild(el);
+    setTimeout(()=>el.remove(),2800);
+  };
+
+  /* ── THEME ── */
+  const applyTheme=t=>document.documentElement.setAttribute('data-theme',t);
+
+  /* ── LAZY IMAGE LOADING ── */
+  const imgObs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(!e.isIntersecting)return;
+      const img=e.target,src=img.dataset.src;
+      if(!src)return;
+      img.src=src;
+      img.onload=()=>{img.classList.add('loaded');img.closest('.card-img')?.classList.add('loaded');};
+      img.onerror=()=>img.classList.add('loaded');
+      imgObs.unobserve(img);
     });
+  },{rootMargin:'250px'});
 
-    // ── FAVORITES ────────────────────────────────────────────────────
-    const isFavorited = (id) => getFavorites().some(f => f.id === id);
+  const lazy=(img,src)=>{img.dataset.src=src;imgObs.observe(img);};
 
-    const toggleFavorite = (w) => {
-      const favs = getFavorites();
-      const idx = favs.findIndex(f => f.id === w.id);
-      if (idx >= 0) { favs.splice(idx, 1); showToast('Removed from favorites'); }
-      else {
-        favs.push({ id: w.id, title: w.title, image_url: w.image_url, thumbnail_url: w.thumbnail_url, category: w.category, source: w.source });
-        showToast('Added to favorites ❤️');
-      }
-      setFavorites(favs);
-      return idx < 0;
-    };
+  const loadModalImg=src=>{
+    const img=document.getElementById('modal-img');
+    img.classList.remove('loaded');img.src=src;
+    img.onload=()=>img.classList.add('loaded');
+    img.onerror=()=>img.classList.add('loaded');
+  };
 
-    // ── TOAST ────────────────────────────────────────────────────────
-    const showToast = (msg) => {
-      const el = document.createElement('div');
-      el.className = 'toast'; el.textContent = msg;
-      document.getElementById('toast-container').appendChild(el);
-      setTimeout(() => el.remove(), 2800);
-    };
+  /* ── DOM REFS ── */
+  const homeGrid=document.getElementById('home-grid');
+  const pag=document.getElementById('pagination');
+  const spn=document.getElementById('spinner');
+  const sentinel=document.getElementById('sentinel');
+  const drawer=document.getElementById('drawer');
+  const dOverlay=document.getElementById('drawer-overlay');
+  const mOverlay=document.getElementById('modal-overlay');
+  const autoBadge=document.getElementById('auto-badge');
+  const statsEl=document.getElementById('stats');
+  const searchEl=document.getElementById('search-input');
 
-    // ── THEME ────────────────────────────────────────────────────────
-    const applyTheme = (t) => document.documentElement.setAttribute('data-theme', t);
+  /* ── DRAWER ── */
+  const openD=()=>{drawer.classList.add('open');dOverlay.classList.add('open');document.body.style.overflow='hidden';};
+  const closeD=()=>{drawer.classList.remove('open');dOverlay.classList.remove('open');document.body.style.overflow='';};
+  document.getElementById('hamburger').addEventListener('click',openD);
+  document.getElementById('drawer-close').addEventListener('click',closeD);
+  dOverlay.addEventListener('click',closeD);
 
-    // ── DOM REFS ─────────────────────────────────────────────────────
-    const homeGrid      = document.getElementById('home-grid');
-    const pagination    = document.getElementById('pagination');
-    const spinner       = document.getElementById('load-more-spinner');
-    const sentinel      = document.getElementById('scroll-sentinel');
-    const drawerEl      = document.getElementById('drawer');
-    const drawerOverlay = document.getElementById('drawer-overlay');
-    const modalOverlay  = document.getElementById('modal-overlay');
-    const autoBadge     = document.getElementById('auto-changer-badge');
-    const statsBar      = document.getElementById('stats-bar');
-    const searchInput   = document.getElementById('search-input');
+  /* ── SORT ── */
+  document.querySelectorAll('.sort-item').forEach(o=>{
+    o.addEventListener('click',()=>{
+      if(o.dataset.sort===S.sort)return;
+      S.sort=o.dataset.sort;LS.s('wani_v5_sort',S.sort);
+      document.querySelectorAll('.sort-item').forEach(x=>x.classList.remove('active'));
+      o.classList.add('active');closeD();reset();
+    });
+  });
 
-    // ── DRAWER ───────────────────────────────────────────────────────
-    const openDrawer  = () => { drawerEl.classList.add('open'); drawerOverlay.classList.add('open'); document.body.style.overflow = 'hidden'; };
-    const closeDrawer = () => { drawerEl.classList.remove('open'); drawerOverlay.classList.remove('open'); document.body.style.overflow = ''; };
+  /* ── SOURCE TOGGLES ── */
+  document.getElementById('tog-wh').addEventListener('change',e=>{S.useWH=e.target.checked;reset();});
+  document.getElementById('tog-sb').addEventListener('change',e=>{S.useSB=e.target.checked;reset();});
 
-    document.getElementById('hamburger-btn').addEventListener('click', openDrawer);
-    document.getElementById('drawer-close').addEventListener('click', closeDrawer);
-    drawerOverlay.addEventListener('click', closeDrawer);
+  /* ── SEARCH ── */
+  searchEl.addEventListener('input',e=>{
+    clearTimeout(sTimer);
+    sTimer=setTimeout(()=>{S.q=e.target.value.trim();reset();},480);
+  });
 
-    // ── SORT ─────────────────────────────────────────────────────────
-    document.querySelectorAll('.sort-option').forEach(opt => {
-      opt.addEventListener('click', () => {
-        if (opt.dataset.sort === state.currentSort) return;
-        state.currentSort = opt.dataset.sort;
-        LS.set('wani_sort', state.currentSort);
-        document.querySelectorAll('.sort-option').forEach(o => o.classList.remove('active'));
-        opt.classList.add('active');
-        closeDrawer(); resetAndFetch();
+  /* ── CATEGORY FILTERS ── */
+  const buildCats=cats=>{
+    const c=document.getElementById('cat-filters');S.cats=cats;
+    if(!cats.length){c.innerHTML='<div class="no-cats">No categories found</div>';return;}
+    c.innerHTML='';
+    cats.forEach(cat=>{
+      const l=document.createElement('label');l.className='cat-item';l.dataset.cat=cat;
+      l.innerHTML=`<input type="checkbox" value="${ea(cat)}"/><span class="cat-box"><i class="fa-solid fa-check"></i></span><span>${eh(cat)}</span>`;
+      l.querySelector('input').addEventListener('change',ev=>{
+        if(ev.target.checked){l.classList.add('active');if(!S.catFilters.includes(cat))S.catFilters.push(cat);}
+        else{l.classList.remove('active');S.catFilters=S.catFilters.filter(x=>x!==cat);}
+        clientFilter();
       });
+      c.appendChild(l);
     });
+  };
 
-    // ── SOURCE TOGGLES ───────────────────────────────────────────────
-    document.getElementById('toggle-wallhaven').addEventListener('change', (e) => {
-      state.useWallhaven = e.target.checked;
-      resetAndFetch();
-    });
-    document.getElementById('toggle-supabase').addEventListener('change', (e) => {
-      state.useSupabase = e.target.checked;
-      resetAndFetch();
-    });
+  const clientFilter=()=>{
+    S.filtered=S.catFilters.length?S.wps.filter(w=>S.catFilters.includes(w.category)):[...S.wps];
+    renderGrid(homeGrid,S.filtered);
+  };
 
-    // ── SEARCH ───────────────────────────────────────────────────────
-    searchInput.addEventListener('input', (e) => {
-      clearTimeout(searchDebounceTimer);
-      searchDebounceTimer = setTimeout(() => {
-        state.searchQuery = e.target.value.trim();
-        resetAndFetch();
-      }, 500);
-    });
+  document.getElementById('reset-btn').addEventListener('click',()=>{
+    S.catFilters=[];
+    document.querySelectorAll('.cat-item').forEach(l=>{l.classList.remove('active');l.querySelector('input').checked=false;});
+    S.filtered=[...S.wps];renderGrid(homeGrid,S.filtered);closeD();
+  });
 
-    // ── CATEGORY FILTER ──────────────────────────────────────────────
-    const buildCategoryFilters = (categories) => {
-      const container = document.getElementById('category-filters');
-      state.allCategories = categories;
-      if (!categories.length) { container.innerHTML = '<div class="no-cats">No categories found</div>'; return; }
-      container.innerHTML = '';
-      categories.forEach(cat => {
-        const label = document.createElement('label');
-        label.className = 'cat-filter'; label.dataset.cat = cat;
-        label.innerHTML = `<input type="checkbox" value="${escapeAttr(cat)}" /><span class="cat-check"><i class="fa-solid fa-check"></i></span><span>${escapeHTML(cat)}</span>`;
-        label.querySelector('input').addEventListener('change', (e) => {
-          if (e.target.checked) { label.classList.add('active'); if (!state.activeCategoryFilters.includes(cat)) state.activeCategoryFilters.push(cat); }
-          else { label.classList.remove('active'); state.activeCategoryFilters = state.activeCategoryFilters.filter(c => c !== cat); }
-          applyClientFilter();
-        });
-        container.appendChild(label);
+  /* ── STATS ── */
+  const updateStats=()=>{
+    const{wallhaven:w,supabase:sb}=S.srcs;
+    if(!w&&!sb){statsEl.innerHTML='';return;}
+    statsEl.innerHTML=`<span class="sdot g"></span><span>${w} Wallhaven</span><span style="color:var(--text-3);margin:0 3px">·</span><span class="sdot d"></span><span>${sb} My Collection</span>`;
+  };
+
+  /* ── FETCH ── */
+  const buildUrl=pg=>{
+    const p=new URLSearchParams({page:pg,limit:LIMIT,sort:S.sort});
+    if(S.q)p.set('q',S.q);
+    if(!S.useWH)p.set('skip_wallhaven','1');
+    if(!S.useSB)p.set('skip_supabase','1');
+    return`${API}?${p}`;
+  };
+
+  const fetch_wps=async(pg=1,append=false)=>{
+    if(S.fetching)return;S.fetching=true;
+    if(!append)renderSkels(homeGrid);else spn.classList.add('on');
+    try{
+      const res=await fetch(buildUrl(pg));
+      if(!res.ok)throw new Error(`${res.status}`);
+      const json=await res.json();
+      const data=json.data||[];
+      S.total=json.totalCount||0;
+      S.pages=Math.max(1,Math.ceil(S.total/LIMIT));
+      S.srcs=json.sources||{wallhaven:0,supabase:0};
+      const filt=data.filter(w=>{
+        if(w.source==='wallhaven'&&!S.useWH)return false;
+        if(w.source==='supabase'&&!S.useSB)return false;
+        return true;
       });
-    };
+      S.wps=append?[...S.wps,...filt]:filt;
+      S.apiPg=pg;S.hasMore=pg<S.pages;
+      if(!append){const cats=[...new Set(filt.map(w=>w.category).filter(Boolean))].sort();buildCats(cats);}
+      clientFilter();updateStats();
+      if(S.pagination)renderPag();else pag.innerHTML='';
+    }catch(err){
+      console.error('[wall-ANI]',err);
+      if(!append)showErr(homeGrid);
+    }finally{S.fetching=false;spn.classList.remove('on');}
+  };
 
-    const applyClientFilter = () => {
-      state.filteredWallpapers = state.activeCategoryFilters.length
-        ? state.wallpapers.filter(w => state.activeCategoryFilters.includes(w.category))
-        : [...state.wallpapers];
-      renderGrid(homeGrid, state.filteredWallpapers);
-    };
+  const reset=()=>{S.apiPg=1;S.wps=[];S.hasMore=true;fetch_wps(1,false);};
 
-    document.getElementById('reset-filters-btn').addEventListener('click', () => {
-      state.activeCategoryFilters = [];
-      document.querySelectorAll('.cat-filter').forEach(l => { l.classList.remove('active'); l.querySelector('input').checked = false; });
-      state.filteredWallpapers = [...state.wallpapers];
-      renderGrid(homeGrid, state.filteredWallpapers);
-      closeDrawer();
-    });
+  /* ── RENDER GRID ── */
+  const renderGrid=(container,items)=>{
+    container.innerHTML='';
+    if(!items.length)return;
+    const frag=document.createDocumentFragment();
+    items.forEach((w,i)=>frag.appendChild(mkCard(w,i)));
+    container.appendChild(frag);
+  };
 
-    // ── STATS BAR ────────────────────────────────────────────────────
-    const updateStatsBar = () => {
-      const { wallhaven, supabase } = state.lastSources;
-      if (!wallhaven && !supabase) { statsBar.innerHTML = ''; return; }
-      statsBar.innerHTML = `
-        <span class="stats-dot wh"></span>
-        <span>${wallhaven} from Wallhaven</span>
-        <span style="color:var(--glass-border)">·</span>
-        <span class="stats-dot sb"></span>
-        <span>${supabase} from My Collection</span>`;
-    };
-
-    // ── FETCH ────────────────────────────────────────────────────────
-    const buildApiUrl = (page) => {
-      const params = new URLSearchParams({
-        page,
-        limit: LIMIT,
-        sort: state.currentSort,
-      });
-      if (state.searchQuery) params.set('q', state.searchQuery);
-      // Pass source flags as hints
-      if (!state.useWallhaven) params.set('skip_wallhaven', '1');
-      if (!state.useSupabase)  params.set('skip_supabase', '1');
-      return `${API_BASE}?${params}`;
-    };
-
-    const fetchWallpapers = async (page = 1, append = false) => {
-      if (state.isFetching) return;
-      state.isFetching = true;
-      if (!append) renderSkeletons(homeGrid);
-      else spinner.classList.add('active');
-
-      try {
-        const res = await fetch(buildApiUrl(page));
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const json = await res.json();
-
-        const data         = json.data || [];
-        state.totalCount   = json.totalCount || 0;
-        state.totalPages   = Math.max(1, Math.ceil(state.totalCount / LIMIT));
-        state.lastSources  = json.sources || { wallhaven: 0, supabase: 0 };
-
-        // Client-side source filtering if one is toggled off
-        const filtered = data.filter(w => {
-          if (w.source === 'wallhaven' && !state.useWallhaven) return false;
-          if (w.source === 'supabase'  && !state.useSupabase)  return false;
-          return true;
-        });
-
-        state.wallpapers     = append ? [...state.wallpapers, ...filtered] : filtered;
-        state.currentApiPage = page;
-        state.hasMore        = page < state.totalPages;
-
-        if (!append) {
-          const cats = [...new Set(filtered.map(w => w.category).filter(Boolean))].sort();
-          buildCategoryFilters(cats);
-        }
-
-        applyClientFilter();
-        updateStatsBar();
-        if (state.paginationIndicators) renderPagination();
-        else pagination.innerHTML = '';
-
-      } catch (err) {
-        console.error('[wall-ANI]', err);
-        if (!append) showErrorState(homeGrid);
-      } finally {
-        state.isFetching = false;
-        spinner.classList.remove('active');
-      }
-    };
-
-    const resetAndFetch = () => {
-      state.currentApiPage = 1; state.wallpapers = []; state.hasMore = true;
-      fetchWallpapers(1, false);
-    };
-
-    // ── RENDER GRID ──────────────────────────────────────────────────
-    const renderGrid = (container, items) => {
-      container.innerHTML = '';
-      if (!items.length) return;
-      const frag = document.createDocumentFragment();
-      items.forEach((w, i) => frag.appendChild(buildCard(w, i)));
-      container.appendChild(frag);
-    };
-
-    const buildCard = (w, idx) => {
-      const favd = isFavorited(w.id);
-      const card = document.createElement('div');
-      card.className = 'wallpaper-card';
-      card.style.animationDelay = `${Math.min(idx, 10) * 30}ms`;
-      const sourceClass = w.source === 'wallhaven' ? 'wallhaven' : 'supabase';
-      const sourceLabel = w.source === 'wallhaven' ? 'Wallhaven' : 'Collection';
-      card.innerHTML = `
-        <div class="card-thumb-wrap">
-          <img class="card-thumb" src="${escapeAttr(w.thumbnail_url || w.image_url)}" alt="${escapeAttr(w.title)}" loading="lazy" decoding="async" />
-          <div class="card-overlay"></div>
-          <span class="source-badge ${sourceClass}">${sourceLabel}</span>
-          <div class="card-actions">
-            <button class="card-action-btn fav-btn ${favd ? 'favorited' : ''}" aria-label="Favorite" data-id="${escapeAttr(String(w.id))}">
-              <i class="fa-${favd ? 'solid' : 'regular'} fa-heart"></i>
-            </button>
-            <button class="card-action-btn dl-btn" aria-label="Download">
-              <i class="fa-solid fa-download"></i>
-            </button>
-          </div>
+  /* ── BUILD CARD ── */
+  const mkCard=(w,idx)=>{
+    const favd=isFav(w.id);
+    const card=document.createElement('div');
+    card.className='card';
+    card.style.animationDelay=`${Math.min(idx,12)*25}ms`;
+    const sc=w.source==='wallhaven'?'wh':'sb';
+    const sl=w.source==='wallhaven'?'WH':'MY';
+    card.innerHTML=`
+      <div class="card-img">
+        <img class="card-thumb" src="" alt="${ea(w.title||'Anime wallpaper')}"/>
+        <div class="card-overlay"></div>
+        <span class="src-badge ${sc}">${sl}</span>
+        <div class="card-acts">
+          <button class="act fav-act ${favd?'faved':''}" data-id="${ea(String(w.id))}" aria-label="Favorite">
+            <i class="fa-${favd?'solid':'regular'} fa-heart"></i>
+          </button>
+          <button class="act dl-act" aria-label="Download"><i class="fa-solid fa-download"></i></button>
         </div>
-        <div class="card-info">
-          <div class="card-title">${escapeHTML(w.title || w.id)}</div>
-          <div class="card-category">${escapeHTML(w.category || 'anime')}</div>
-        </div>`;
-
-      card.addEventListener('click', (e) => { if (e.target.closest('.card-action-btn')) return; openModal(w); });
-
-      card.querySelector('.fav-btn').addEventListener('click', (e) => {
-        e.stopPropagation();
-        const btn = e.currentTarget;
-        const nowFav = toggleFavorite(w);
-        btn.classList.toggle('favorited', nowFav);
-        btn.innerHTML = `<i class="fa-${nowFav ? 'solid' : 'regular'} fa-heart"></i>`;
-        if (state.currentModal?.id === w.id) syncModalFavBtn(nowFav);
-      });
-
-      card.querySelector('.dl-btn').addEventListener('click', (e) => {
-        e.stopPropagation(); downloadWallpaper(w.image_url, w.title || w.id);
-      });
-
-      return card;
-    };
-
-    // ── SKELETONS ────────────────────────────────────────────────────
-    const renderSkeletons = (container, count = 10) => {
-      container.innerHTML = '';
-      const frag = document.createDocumentFragment();
-      for (let i = 0; i < count; i++) {
-        const sk = document.createElement('div'); sk.className = 'skeleton-card';
-        sk.innerHTML = `<div class="sk-thumb"></div><div class="sk-info"><div class="sk-line"></div><div class="sk-line"></div></div>`;
-        frag.appendChild(sk);
-      }
-      container.appendChild(frag);
-    };
-
-    // ── ERROR STATE ──────────────────────────────────────────────────
-    const showErrorState = (container) => {
-      container.innerHTML = `
-        <div class="state-message" style="grid-column:1/-1">
-          <div class="state-icon">⚠️</div>
-          <div class="state-text">Failed to load wallpapers</div>
-          <div class="state-sub">Check your connection and try again</div>
-          <button class="retry-btn" id="retry-btn">Retry</button>
-        </div>`;
-      document.getElementById('retry-btn')?.addEventListener('click', resetAndFetch);
-    };
-
-    // ── PAGINATION ───────────────────────────────────────────────────
-    const renderPagination = () => {
-      pagination.innerHTML = '';
-      if (state.totalPages <= 1) return;
-      const frag = document.createDocumentFragment();
-      const addBtn = (label, page, isActive = false) => {
-        const btn = document.createElement('button');
-        btn.className = `page-btn${isActive ? ' active' : ''}`;
-        btn.textContent = label;
-        btn.addEventListener('click', () => { state.currentApiPage = page; fetchWallpapers(page, false); window.scrollTo({ top: 0, behavior: 'smooth' }); });
-        frag.appendChild(btn);
-      };
-      const cp = state.currentApiPage, tp = state.totalPages;
-      if (cp > 1) addBtn('‹', cp - 1);
-      const range = new Set([1, tp, cp - 1, cp, cp + 1].filter(p => p >= 1 && p <= tp));
-      let prev = null;
-      [...range].sort((a, b) => a - b).forEach(p => {
-        if (prev && p - prev > 1) { const d = document.createElement('span'); d.textContent = '…'; d.style.cssText = 'color:var(--text-muted);padding:0 4px;align-self:center;'; frag.appendChild(d); }
-        addBtn(p, p, p === cp); prev = p;
-      });
-      if (cp < tp) addBtn('›', cp + 1);
-      pagination.appendChild(frag);
-    };
-
-    // ── INFINITE SCROLL ──────────────────────────────────────────────
-    new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting && !state.paginationIndicators && state.hasMore && !state.isFetching)
-        fetchWallpapers(state.currentApiPage + 1, true);
-    }, { rootMargin: '200px' }).observe(sentinel);
-
-    // ── DOWNLOAD ─────────────────────────────────────────────────────
-    const downloadWallpaper = async (url, title) => {
-      showToast('Starting download…');
-      try {
-        const res = await fetch(url); if (!res.ok) throw new Error();
-        const blob = await res.blob();
-        const a = document.createElement('a');
-        const bu = URL.createObjectURL(blob);
-        a.href = bu; a.download = `${sanitizeFilename(title)}.jpg`;
-        document.body.appendChild(a); a.click(); document.body.removeChild(a);
-        URL.revokeObjectURL(bu);
-        const downloads = getDownloads();
-        downloads.unshift({ url, title: title || 'Untitled', timestamp: Date.now() });
-        setDownloads(downloads.slice(0, 200));
-        showToast('Downloaded ✓');
-      } catch { showToast('Download failed. Try again.'); }
-    };
-
-    // ── MODAL ────────────────────────────────────────────────────────
-    const openModal = (w) => {
-      state.currentModal = w;
-      document.getElementById('modal-img').src = w.image_url;
-      document.getElementById('modal-title').textContent = w.title || w.id;
-      document.getElementById('modal-category').textContent = w.category || 'anime';
-      const badge = document.getElementById('modal-source-badge');
-      badge.textContent = w.source === 'wallhaven' ? 'Wallhaven' : 'My Collection';
-      badge.className = `source-badge ${w.source === 'wallhaven' ? 'wallhaven' : 'supabase'}`;
-      syncModalFavBtn(isFavorited(w.id));
-      modalOverlay.classList.add('open'); document.body.style.overflow = 'hidden';
-    };
-
-    const closeModal = () => {
-      modalOverlay.classList.remove('open'); document.body.style.overflow = '';
-      setTimeout(() => { document.getElementById('modal-img').src = ''; state.currentModal = null; }, 300);
-    };
-
-    const syncModalFavBtn = (isFav) => {
-      const btn = document.getElementById('modal-fav');
-      btn.classList.toggle('fav-active', isFav);
-      btn.innerHTML = `<i class="fa-${isFav ? 'solid' : 'regular'} fa-heart"></i> ${isFav ? 'Unlike' : 'Like'}`;
-    };
-
-    document.getElementById('modal-back').addEventListener('click', closeModal);
-    modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
-    document.getElementById('modal-download').addEventListener('click', () => { if (state.currentModal) downloadWallpaper(state.currentModal.image_url, state.currentModal.title || state.currentModal.id); });
-    document.getElementById('modal-view').addEventListener('click', () => { if (state.currentModal) window.open(state.currentModal.image_url, '_blank', 'noopener,noreferrer'); });
-    document.getElementById('modal-fav').addEventListener('click', () => {
-      if (!state.currentModal) return;
-      const nowFav = toggleFavorite(state.currentModal);
-      syncModalFavBtn(nowFav);
-      const cb = document.querySelector(`.fav-btn[data-id="${escapeAttr(String(state.currentModal.id))}"]`);
-      if (cb) { cb.classList.toggle('favorited', nowFav); cb.innerHTML = `<i class="fa-${nowFav ? 'solid' : 'regular'} fa-heart"></i>`; }
+      </div>
+      <div class="card-info">
+        <div class="card-title">${eh(w.title||w.id)}</div>
+        <div class="card-cat">${eh(w.category||'anime')}</div>
+      </div>`;
+    lazy(card.querySelector('.card-thumb'),w.thumbnail_url||w.image_url);
+    card.addEventListener('click',e=>{if(e.target.closest('.act'))return;openModal(w);});
+    card.querySelector('.fav-act').addEventListener('click',e=>{
+      e.stopPropagation();const btn=e.currentTarget;
+      const nf=togFav(w);btn.classList.toggle('faved',nf);
+      btn.innerHTML=`<i class="fa-${nf?'solid':'regular'} fa-heart"></i>`;
+      if(S.modal?.id===w.id)syncFavBtn(nf);
     });
-    document.getElementById('modal-share').addEventListener('click', () => { if (state.currentModal) shareItem(state.currentModal.image_url, state.currentModal.title); });
-    document.getElementById('modal-apply').addEventListener('click', () => {
-      if (!state.currentModal) return;
-      document.body.style.backgroundImage = `url(${state.currentModal.image_url})`;
-      document.body.style.backgroundSize = 'cover';
-      document.body.style.backgroundPosition = 'center';
-      document.body.style.backgroundAttachment = 'fixed';
-      showToast('Background applied! ✨'); closeModal();
+    card.querySelector('.dl-act').addEventListener('click',e=>{e.stopPropagation();dlWP(w.image_url,w.title||w.id);});
+    return card;
+  };
+
+  /* ── SKELETONS ── */
+  const renderSkels=(container,n=12)=>{
+    container.innerHTML='';const frag=document.createDocumentFragment();
+    for(let i=0;i<n;i++){const s=document.createElement('div');s.className='skel';s.innerHTML='<div class="skel-img"></div><div class="skel-info"><div class="skel-line"></div><div class="skel-line"></div></div>';frag.appendChild(s);}
+    container.appendChild(frag);
+  };
+
+  /* ── ERROR STATE ── */
+  const showErr=container=>{
+    container.innerHTML='<div class="state"><div class="state-icon">⚠️</div><div class="state-title">Failed to load wallpapers</div><div class="state-sub">Check your connection and try again</div><button class="retry-btn" id="retry">Retry</button></div>';
+    document.getElementById('retry')?.addEventListener('click',reset);
+  };
+
+  /* ── PAGINATION ── */
+  const renderPag=()=>{
+    pag.innerHTML='';if(S.pages<=1)return;
+    const frag=document.createDocumentFragment();
+    const addBtn=(lbl,pg,active=false)=>{
+      const btn=document.createElement('button');btn.className=`pg-btn${active?' active':''}`;btn.textContent=lbl;
+      btn.addEventListener('click',()=>{S.apiPg=pg;fetch_wps(pg,false);window.scrollTo({top:0,behavior:'smooth'});});
+      frag.appendChild(btn);
+    };
+    const cp=S.apiPg,tp=S.pages;
+    if(cp>1)addBtn('‹',cp-1);
+    const range=new Set([1,tp,cp-1,cp,cp+1].filter(p=>p>=1&&p<=tp));
+    let prev=null;
+    [...range].sort((a,b)=>a-b).forEach(p=>{
+      if(prev&&p-prev>1){const d=document.createElement('span');d.textContent='…';d.style.cssText='color:var(--text-3);padding:0 3px;align-self:center;';frag.appendChild(d);}
+      addBtn(p,p,p===cp);prev=p;
     });
+    if(cp<tp)addBtn('›',cp+1);
+    pag.appendChild(frag);
+  };
 
-    // ── SHARE ────────────────────────────────────────────────────────
-    const shareItem = (url, title) => {
-      if (navigator.share) navigator.share({ title: `wall-ANI – ${title}`, url }).catch(() => {});
-      else navigator.clipboard?.writeText(url).then(() => showToast('Link copied!')).catch(() => alert(`Share link:\n${url}`));
-    };
+  /* ── INFINITE SCROLL ── */
+  new IntersectionObserver(entries=>{
+    if(entries[0].isIntersecting&&!S.pagination&&S.hasMore&&!S.fetching)
+      fetch_wps(S.apiPg+1,true);
+  },{rootMargin:'200px'}).observe(sentinel);
 
-    // ── PAGE NAV ─────────────────────────────────────────────────────
-    const pageTitles = { home: 'HOME', favorites: 'FAVORITES', downloads: 'DOWNLOADED', settings: 'SETTINGS' };
-    const pageIds    = { home: 'page-home', favorites: 'page-favorites', downloads: 'page-downloads', settings: 'page-settings' };
+  /* ── DOWNLOAD ── */
+  const dlWP=async(url,title)=>{
+    toast('Starting download…');
+    try{
+      const res=await fetch(url);if(!res.ok)throw new Error();
+      const blob=await res.blob();
+      const a=document.createElement('a');const bu=URL.createObjectURL(blob);
+      a.href=bu;a.download=`${sfn(title)}.jpg`;
+      document.body.appendChild(a);a.click();document.body.removeChild(a);
+      URL.revokeObjectURL(bu);
+      const dls=gDls();dls.unshift({url,title:title||'Untitled',ts:Date.now()});
+      sDls(dls.slice(0,200));toast('Saved ✦');
+    }catch{toast('Download failed. Try again.');}
+  };
 
-    const navigateTo = (page) => {
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      document.getElementById(pageIds[page]).classList.add('active-page');
-      document.querySelector(`.tab-btn[data-page="${page}"]`).classList.add('active');
-      document.getElementById('page-title').textContent = pageTitles[page] || page.toUpperCase();
-      state.currentPage = page;
-      if (page === 'favorites') renderFavoritesPage();
-      if (page === 'downloads') renderDownloadsPage();
-    };
+  /* ── MODAL ── */
+  const openModal=w=>{
+    S.modal=w;loadModalImg(w.image_url);
+    document.getElementById('modal-title').textContent=w.title||w.id;
+    document.getElementById('modal-cat').textContent=(w.category||'anime').toUpperCase();
+    const src=document.getElementById('modal-src');
+    src.textContent=w.source==='wallhaven'?'Wallhaven':'My Collection';
+    src.className=`src-badge ${w.source==='wallhaven'?'wh':'sb'}`;
+    syncFavBtn(isFav(w.id));
+    mOverlay.classList.add('open');document.body.style.overflow='hidden';
+  };
+  const closeModal=()=>{
+    mOverlay.classList.remove('open');document.body.style.overflow='';
+    setTimeout(()=>{document.getElementById('modal-img').src='';S.modal=null;},280);
+  };
+  const syncFavBtn=f=>{
+    const btn=document.getElementById('m-fav');btn.classList.toggle('fav-on',f);
+    btn.innerHTML=`<i class="fa-${f?'solid':'regular'} fa-heart"></i>${f?'Unlike':'Like'}`;
+  };
 
-    document.querySelectorAll('.tab-btn').forEach(btn => btn.addEventListener('click', () => navigateTo(btn.dataset.page)));
+  document.getElementById('m-back').addEventListener('click',closeModal);
+  mOverlay.addEventListener('click',e=>{if(e.target===mOverlay)closeModal();});
+  document.getElementById('m-dl').addEventListener('click',()=>{if(S.modal)dlWP(S.modal.image_url,S.modal.title||S.modal.id);});
+  document.getElementById('m-view').addEventListener('click',()=>{if(S.modal)window.open(S.modal.image_url,'_blank','noopener,noreferrer');});
+  document.getElementById('m-fav').addEventListener('click',()=>{
+    if(!S.modal)return;const nf=togFav(S.modal);syncFavBtn(nf);
+    const cb=document.querySelector(`.fav-act[data-id="${ea(String(S.modal.id))}"]`);
+    if(cb){cb.classList.toggle('faved',nf);cb.innerHTML=`<i class="fa-${nf?'solid':'regular'} fa-heart"></i>`;}
+  });
+  document.getElementById('m-share').addEventListener('click',()=>{if(S.modal)shareIt(S.modal.image_url,S.modal.title);});
+  document.getElementById('m-apply').addEventListener('click',()=>{
+    if(!S.modal)return;
+    document.body.style.backgroundImage=`url(${S.modal.image_url})`;
+    document.body.style.backgroundSize='cover';
+    document.body.style.backgroundPosition='center';
+    document.body.style.backgroundAttachment='fixed';
+    toast('Background applied ✦');closeModal();
+  });
 
-    // ── FAVORITES PAGE ───────────────────────────────────────────────
-    const renderFavoritesPage = () => {
-      const favGrid = document.getElementById('fav-grid');
-      const favs = getFavorites();
-      let badge = document.getElementById('fav-count-badge');
-      if (!badge) { badge = document.createElement('div'); badge.id = 'fav-count-badge'; document.getElementById('page-favorites').insertBefore(badge, favGrid); }
-      badge.textContent = `${favs.length} Saved`;
-      if (!favs.length) {
-        favGrid.innerHTML = `<div class="state-message" style="grid-column:1/-1"><div class="state-icon">❤️</div><div class="state-text">No favorites yet</div><div class="state-sub">Tap the heart icon on any wallpaper</div></div>`;
-        return;
-      }
-      renderGrid(favGrid, favs);
-    };
+  /* ── SHARE ── */
+  const shareIt=(url,title)=>{
+    if(navigator.share)navigator.share({title:`wall-ANI – ${title}`,url}).catch(()=>{});
+    else navigator.clipboard?.writeText(url).then(()=>toast('Link copied!')).catch(()=>alert(`Share:\n${url}`));
+  };
 
-    // ── DOWNLOADS PAGE ───────────────────────────────────────────────
-    const renderDownloadsPage = () => {
-      const dlGrid = document.getElementById('dl-grid');
-      const downloads = getDownloads();
-      document.getElementById('dl-count-label').textContent = `${downloads.length} item${downloads.length !== 1 ? 's' : ''}`;
-      if (!downloads.length) {
-        dlGrid.innerHTML = `<div class="state-message" style="grid-column:1/-1"><div class="state-icon">📥</div><div class="state-text">No downloads yet</div><div class="state-sub">Your download history appears here</div></div>`;
-        return;
-      }
-      dlGrid.innerHTML = '';
-      const frag = document.createDocumentFragment();
-      downloads.forEach((item, idx) => {
-        const card = document.createElement('div'); card.className = 'wallpaper-card';
-        card.style.animationDelay = `${Math.min(idx, 10) * 30}ms`;
-        card.innerHTML = `
-          <div class="card-thumb-wrap">
-            <img class="card-thumb" src="${escapeAttr(item.url)}" alt="${escapeAttr(item.title)}" loading="lazy" />
-            <div class="card-overlay"></div>
-            <div class="card-actions">
-              <button class="card-action-btn" aria-label="Remove" style="background:rgba(230,63,90,0.5);"><i class="fa-solid fa-trash"></i></button>
-            </div>
-          </div>
-          <div class="card-info">
-            <div class="card-title">${escapeHTML(item.title)}</div>
-            <div class="card-category">${formatDate(item.timestamp)}</div>
-          </div>`;
-        card.querySelector('.card-action-btn').addEventListener('click', (e) => {
-          e.stopPropagation(); const list = getDownloads(); list.splice(idx, 1); setDownloads(list); renderDownloadsPage(); showToast('Removed from history');
-        });
-        frag.appendChild(card);
-      });
-      dlGrid.appendChild(frag);
-    };
+  /* ── PAGE NAV ── */
+  const pgTitles={home:'HOME',favorites:'FAVORITES',downloads:'DOWNLOADS',settings:'SETTINGS'};
+  const pgIds={home:'pg-home',favorites:'pg-favorites',downloads:'pg-downloads',settings:'pg-settings'};
 
-    document.getElementById('clear-downloads-btn').addEventListener('click', () => { setDownloads([]); renderDownloadsPage(); showToast('Download history cleared'); });
+  const navTo=pg=>{
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+    document.getElementById(pgIds[pg]).classList.add('active');
+    document.querySelector(`.tab[data-pg="${pg}"]`).classList.add('active');
+    document.getElementById('page-title').textContent=pgTitles[pg]||pg.toUpperCase();
+    S.pg=pg;
+    if(pg==='favorites')renderFavs();
+    if(pg==='downloads')renderDls();
+  };
+  document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>navTo(b.dataset.pg)));
 
-    // ── SETTINGS ─────────────────────────────────────────────────────
-    const loadSettings = () => {
-      const s = getSettings();
-      state.autoChanger = s.autoChanger ?? false;
-      state.theme = s.theme ?? 'dark';
-      state.paginationIndicators = s.paginationIndicators ?? true;
-      document.getElementById('toggle-auto').checked = state.autoChanger;
-      document.getElementById('theme-select').value = state.theme;
-      document.getElementById('toggle-pagination').checked = state.paginationIndicators;
-      applyTheme(state.theme);
-      if (state.autoChanger) startAutoChanger();
-    };
+  /* ── FAVORITES PAGE ── */
+  const renderFavs=()=>{
+    const fg=document.getElementById('fav-grid');
+    const favs=gFavs();
+    let badge=document.getElementById('fav-badge');
+    if(!badge){badge=document.createElement('div');badge.id='fav-badge';document.getElementById('pg-favorites').insertBefore(badge,fg);}
+    badge.textContent=`${favs.length} Saved`;
+    if(!favs.length){fg.innerHTML='<div class="state"><div class="state-icon">✦</div><div class="state-title">No favorites yet</div><div class="state-sub">Tap the heart on any wallpaper</div></div>';return;}
+    renderGrid(fg,favs);
+  };
 
-    document.getElementById('toggle-auto').addEventListener('change', (e) => {
-      state.autoChanger = e.target.checked;
-      state.autoChanger ? (startAutoChanger(), showToast('Auto changer ON 🔄')) : (stopAutoChanger(), showToast('Auto changer OFF'));
-      saveSettings();
+  /* ── DOWNLOADS PAGE ── */
+  const renderDls=()=>{
+    const dg=document.getElementById('dl-grid');
+    const dls=gDls();
+    document.getElementById('dl-count').textContent=`${dls.length} item${dls.length!==1?'s':''}`;
+    if(!dls.length){dg.innerHTML='<div class="state"><div class="state-icon">📥</div><div class="state-title">No downloads yet</div><div class="state-sub">Your saved wallpapers appear here</div></div>';return;}
+    dg.innerHTML='';const frag=document.createDocumentFragment();
+    dls.forEach((item,idx)=>{
+      const card=document.createElement('div');card.className='card';card.style.animationDelay=`${Math.min(idx,12)*25}ms`;
+      card.innerHTML=`<div class="card-img"><img class="card-thumb" src="" alt="${ea(item.title)}"/><div class="card-overlay"></div><div class="card-acts"><button class="act" aria-label="Remove" style="background:rgba(255,60,60,0.6);"><i class="fa-solid fa-trash"></i></button></div></div><div class="card-info"><div class="card-title">${eh(item.title)}</div><div class="card-cat">${fd(item.ts)}</div></div>`;
+      lazy(card.querySelector('.card-thumb'),item.url);
+      card.querySelector('.act').addEventListener('click',e=>{e.stopPropagation();const list=gDls();list.splice(idx,1);sDls(list);renderDls();toast('Removed');});
+      frag.appendChild(card);
     });
-    document.getElementById('theme-select').addEventListener('change', (e) => { state.theme = e.target.value; applyTheme(state.theme); saveSettings(); });
-    document.getElementById('toggle-pagination').addEventListener('change', (e) => {
-      state.paginationIndicators = e.target.checked; saveSettings();
-      state.paginationIndicators ? renderPagination() : pagination.innerHTML = '';
-    });
+    dg.appendChild(frag);
+  };
+  document.getElementById('clear-btn').addEventListener('click',()=>{sDls([]);renderDls();toast('History cleared');});
 
-    document.getElementById('btn-rate').addEventListener('click',     () => showToast('Thanks for your support! ⭐'));
-    document.getElementById('btn-share').addEventListener('click',    () => shareItem(window.location.href, 'wall-ANI – Anime Wallpapers'));
-    document.getElementById('btn-privacy').addEventListener('click',  () => alert('Privacy Policy\n\nwall-ANI does not collect or share your personal data. All preferences are stored locally on your device.'));
-    document.getElementById('btn-about').addEventListener('click',    () => alert('wall-ANI\nVersion 4.0.0\n\nA high-quality anime wallpaper platform.\nBuilt with ❤️ and pure JavaScript.'));
+  /* ── SETTINGS ── */
+  const loadSet=()=>{
+    const s=gSet();S.auto=s.auto??false;S.theme=s.theme??'dark';S.pagination=s.pagination??true;
+    document.getElementById('tog-auto').checked=S.auto;
+    document.getElementById('theme-sel').value=S.theme;
+    document.getElementById('tog-pag').checked=S.pagination;
+    applyTheme(S.theme);if(S.auto)startAuto();
+  };
+  document.getElementById('tog-auto').addEventListener('change',e=>{S.auto=e.target.checked;S.auto?(startAuto(),toast('Auto changer ON ✦')):(stopAuto(),toast('Auto changer OFF'));saveSet();});
+  document.getElementById('theme-sel').addEventListener('change',e=>{S.theme=e.target.value;applyTheme(S.theme);saveSet();});
+  document.getElementById('tog-pag').addEventListener('change',e=>{S.pagination=e.target.checked;saveSet();S.pagination?renderPag():pag.innerHTML='';});
+  document.getElementById('btn-rate').addEventListener('click',()=>toast('Thanks for the support ✦'));
+  document.getElementById('btn-share').addEventListener('click',()=>shareIt(window.location.href,'wall-ANI – Anime Wallpapers'));
+  document.getElementById('btn-privacy').addEventListener('click',()=>alert('Privacy Policy\n\nwall-ANI does not collect or share your personal data. All preferences are stored locally on your device.'));
+  document.getElementById('btn-about').addEventListener('click',()=>alert('wall-ANI\nVersion 5.0.0\n\nA premium anime wallpaper platform.\nBuilt with ❤️'));
 
-    // ── AUTO CHANGER ─────────────────────────────────────────────────
-    const startAutoChanger = () => {
-      stopAutoChanger(); autoBadge.classList.add('active');
-      state.autoChangerTimer = setInterval(() => {
-        if (state.currentPage !== 'home') return;
-        fetchWallpapers(Math.floor(Math.random() * state.totalPages) + 1, false);
-      }, AUTO_INTERVAL);
-    };
-    const stopAutoChanger = () => {
-      if (state.autoChangerTimer) { clearInterval(state.autoChangerTimer); state.autoChangerTimer = null; }
-      autoBadge.classList.remove('active');
-    };
+  /* ── AUTO CHANGER ── */
+  const startAuto=()=>{stopAuto();autoBadge.classList.add('on');S.autoTimer=setInterval(()=>{if(S.pg!=='home')return;fetch_wps(Math.floor(Math.random()*S.pages)+1,false);},AUTO_MS);};
+  const stopAuto=()=>{if(S.autoTimer){clearInterval(S.autoTimer);S.autoTimer=null;}autoBadge.classList.remove('on');};
 
-    // ── ESCAPE HELPERS ───────────────────────────────────────────────
-    const escapeHTML = (str) => { const d = document.createElement('div'); d.appendChild(document.createTextNode(str || '')); return d.innerHTML; };
-    const escapeAttr = (str) => String(str || '').replace(/['"<>&]/g, c => ({"'": '&#39;', '"': '&quot;', '<': '&lt;', '>': '&gt;', '&': '&amp;'}[c]));
-    const sanitizeFilename = (n) => (n || '').replace(/[^a-z0-9_\-\s]/gi, '').trim().replace(/\s+/g, '_').slice(0, 80) || 'wallpaper';
-    const formatDate = (ts) => new Date(ts).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+  /* ── PWA INSTALL ── */
+  let dPrompt=null;
+  const iBanner=document.getElementById('install-banner');
+  window.addEventListener('beforeinstallprompt',e=>{
+    e.preventDefault();dPrompt=e;
+    setTimeout(()=>{if(!LS.g('wani_v5_installed'))iBanner.classList.add('show');},3000);
+  });
+  document.getElementById('inst-btn').addEventListener('click',async()=>{
+    if(!dPrompt)return;dPrompt.prompt();
+    const{outcome}=await dPrompt.userChoice;
+    if(outcome==='accepted')toast('wall-ANI installed ✦');
+    dPrompt=null;iBanner.classList.remove('show');
+  });
+  document.getElementById('inst-dismiss').addEventListener('click',()=>{iBanner.classList.remove('show');LS.s('wani_v5_installed',true);});
 
-    // ── INIT ─────────────────────────────────────────────────────────
-    const init = () => {
-      const lastSort = LS.get('wani_sort', 'newest');
-      if (lastSort !== state.currentSort) {
-        state.currentSort = lastSort;
-        document.querySelectorAll('.sort-option').forEach(o => o.classList.toggle('active', o.dataset.sort === lastSort));
-      }
-      loadSettings();
-      fetchWallpapers(1, false);
-    };
+  /* ── SERVICE WORKER ── */
+  if('serviceWorker' in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('/sw.js').catch(()=>{});});}
 
-    init();
-  })();
-  </script>
+  /* ── HELPERS ── */
+  const eh=s=>{const d=document.createElement('div');d.appendChild(document.createTextNode(s||''));return d.innerHTML;};
+  const ea=s=>String(s||'').replace(/['"<>&]/g,c=>({"'":"&#39;",'"':"&quot;",'<':'&lt;','>':'&gt;','&':'&amp;'}[c]));
+  const sfn=n=>(n||'').replace(/[^a-z0-9_\-\s]/gi,'').trim().replace(/\s+/g,'_').slice(0,80)||'wallpaper';
+  const fd=ts=>new Date(ts).toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'});
+
+  /* ── INIT ── */
+  const init=()=>{
+    const ls=LS.g('wani_v5_sort','newest');
+    if(ls!==S.sort){S.sort=ls;document.querySelectorAll('.sort-item').forEach(o=>o.classList.toggle('active',o.dataset.sort===ls));}
+    loadSet();fetch_wps(1,false);
+  };
+  init();
+})();
+</script>
 </body>
 </html>
