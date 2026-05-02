@@ -1,0 +1,5 @@
+# wall-ANI — robots.txt
+User-agent: *
+Allow: /
+Disallow: /api/
+Sitemap: https://wall-ani.vercel.app/sitemap.xml
