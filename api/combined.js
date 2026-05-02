@@ -3,12 +3,13 @@
  * ─────────────────────────────────────────────
  * Fetches wallpapers from BOTH Supabase AND Wallhaven,
  * merges them, shuffles, and returns a unified feed.
+ * Tuned for HIGH QUALITY anime illustrations and digital art.
  * API key is NEVER exposed to the frontend — server-side only.
  *
  * Query params:
  *   page  : int    (default 1)
  *   limit : int    (default 20)
- *   sort  : 'newest' | 'oldest' | 'random'
+ *   sort  : 'newest' | 'oldest' | 'random' | 'hot' | 'toplist'
  *   q     : string (search/category filter)
  *
  * Environment variables (set on Vercel dashboard):
@@ -23,6 +24,18 @@ const ALLOWED_ORIGINS = process.env.ALLOWED_ORIGINS
   ? process.env.ALLOWED_ORIGINS.split(',').map(s => s.trim())
   : ['*'];
 
+// Rotating quality search tags for variety per page
+const QUALITY_TAGS = [
+  'anime girl illustration',
+  'anime digital art',
+  'anime scenery',
+  'anime portrait',
+  'anime art beautiful',
+  'anime character',
+  'anime sky',
+  'anime city',
+];
+
 function parseIntParam(val, defaultVal, min = 1, max = 100) {
   const n = parseInt(val, 10);
   if (Number.isNaN(n)) return defaultVal;
@@ -30,8 +43,8 @@ function parseIntParam(val, defaultVal, min = 1, max = 100) {
 }
 
 function sanitizeQuery(q) {
-  if (!q || typeof q !== 'string') return 'anime';
-  return q.replace(/[^a-zA-Z0-9\s\-_]/g, '').trim().slice(0, 100) || 'anime';
+  if (!q || typeof q !== 'string') return '';
+  return q.replace(/[^a-zA-Z0-9\s\-_]/g, '').trim().slice(0, 100);
 }
 
 function shuffleArray(arr) {
@@ -43,27 +56,43 @@ function shuffleArray(arr) {
 }
 
 // ── FETCH FROM WALLHAVEN ──────────────────────────────────────────────
-async function fetchFromWallhaven(apiKey, page, q) {
-  // Guard: never call Wallhaven without a valid key
+async function fetchFromWallhaven(apiKey, page, q, sort) {
   if (!apiKey || typeof apiKey !== 'string' || apiKey.trim().length < 8) {
     console.error('[wall-ANI] Wallhaven API key is missing or invalid');
     return { data: [], total: 0 };
   }
 
   try {
+    // Map app sort values to Wallhaven sort values
+    const whSort = {
+      'hot':      'hot',
+      'toplist':  'toplist',
+      'newest':   'date_added',
+      'oldest':   'date_added',
+      'random':   'random',
+    }[sort] || 'hot';
+
+    // Use user query or rotate quality tags
+    const searchQ = q || QUALITY_TAGS[(page - 1) % QUALITY_TAGS.length];
+
     const params = new URLSearchParams({
-      apikey: apiKey.trim(),
-      q,
-      categories: '010',
-      purity: '100',
-      sorting: 'date_added',
-      order: 'desc',
-      page: String(page),
-      atleast: '1920x1080',
+      apikey:     apiKey.trim(),
+      q:          searchQ,
+      categories: '010',       // anime only
+      purity:     '100',       // SFW only
+      sorting:    whSort,
+      order:      sort === 'oldest' ? 'asc' : 'desc',
+      page:       String(page),
+      atleast:    '1080x1920', // portrait phone minimum
+      ratios:     '9x16',      // phone portrait ratio
     });
 
+    if (whSort === 'toplist') {
+      params.set('toplist_range', '1M');
+    }
+
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 10000); // 10s timeout
+    const timeout = setTimeout(() => controller.abort(), 10000);
 
     const res = await fetch(`https://wallhaven.cc/api/v1/search?${params}`, {
       headers: {
@@ -75,9 +104,8 @@ async function fetchFromWallhaven(apiKey, page, q) {
 
     clearTimeout(timeout);
 
-    // Handle Wallhaven rate limiting gracefully
     if (res.status === 429) {
-      console.warn('[wall-ANI] Wallhaven rate limit hit — returning empty');
+      console.warn('[wall-ANI] Wallhaven rate limit hit');
       return { data: [], total: 0, rateLimited: true };
     }
 
@@ -92,19 +120,27 @@ async function fetchFromWallhaven(apiKey, page, q) {
     }
 
     const json = await res.json();
-    const raw = json.data || [];
+    const raw  = json.data || [];
 
-    const data = raw.map(w => ({
-      id: `wh_${w.id}`,
-      title: w.id,
-      image_url: w.path,
-      thumbnail_url: w.thumbs?.large || w.thumbs?.original || w.path,
-      category: w.category || 'anime',
-      date_added: w.created_at,
-      type: 'wallhaven',
-      source: 'wallhaven',
-      resolution: w.resolution || null,
-    }));
+    const data = raw
+      .filter(w => {
+        if (!w.resolution) return true;
+        const [rw, rh] = w.resolution.split('x').map(Number);
+        return rw >= 1080 && rh >= 1080;
+      })
+      .map(w => ({
+        id:            `wh_${w.id}`,
+        title:         w.id,
+        image_url:     w.path,
+        thumbnail_url: w.thumbs?.large || w.thumbs?.original || w.path,
+        category:      w.category || 'anime',
+        date_added:    w.created_at,
+        type:          'wallhaven',
+        source:        'wallhaven',
+        resolution:    w.resolution || null,
+        views:         w.views || 0,
+        favorites:     w.favorites || 0,
+      }));
 
     return { data, total: json.meta?.total || data.length };
   } catch (err) {
@@ -125,7 +161,7 @@ async function fetchFromSupabase(supabaseUrl, supabaseKey, page, limit, sort) {
     });
 
     const from = (page - 1) * limit;
-    const to = from + limit - 1;
+    const to   = from + limit - 1;
 
     const { count } = await supabase
       .from('wallpapers')
@@ -177,74 +213,63 @@ module.exports = async (req, res) => {
   const supabaseKey  = process.env.SUPABASE_ANON_KEY;
   const wallhavenKey = process.env.WALLHAVEN_KEY;
 
-  // Log which vars are present (never log values!)
   if (!supabaseUrl)  console.error('[wall-ANI] SUPABASE_URL is not set');
   if (!supabaseKey)  console.error('[wall-ANI] SUPABASE_ANON_KEY is not set');
   if (!wallhavenKey) console.error('[wall-ANI] WALLHAVEN_KEY is not set');
 
-  // If ALL are missing something is very wrong
   if (!supabaseUrl && !supabaseKey && !wallhavenKey) {
-    return res.status(500).json({ error: 'Server configuration error — env vars missing' });
+    return res.status(500).json({ error: 'Server configuration error' });
   }
 
   // ── PARSE PARAMS ──────────────────────────────────────────────────
   const page  = parseIntParam(req.query.page, 1, 1, 999);
   const limit = parseIntParam(req.query.limit, 20, 1, 40);
-  const sort  = ['newest', 'oldest', 'random'].includes(req.query.sort)
-    ? req.query.sort : 'newest';
-  const q = sanitizeQuery(req.query.q || 'anime');
+  const sort  = ['newest','oldest','random','hot','toplist'].includes(req.query.sort)
+    ? req.query.sort : 'hot'; // Default to HOT for best quality results
+  const q = sanitizeQuery(req.query.q || '');
 
   try {
     // ── FETCH BOTH SOURCES IN PARALLEL ───────────────────────────
     const [wallhavenResult, supabaseResult] = await Promise.allSettled([
       wallhavenKey
-        ? fetchFromWallhaven(wallhavenKey, page, q)
+        ? fetchFromWallhaven(wallhavenKey, page, q, sort)
         : Promise.resolve({ data: [], total: 0 }),
       (supabaseUrl && supabaseKey)
         ? fetchFromSupabase(supabaseUrl, supabaseKey, page, limit, sort)
         : Promise.resolve({ data: [], total: 0 }),
     ]);
 
-    const wallhavenData = wallhavenResult.status === 'fulfilled'
-      ? wallhavenResult.value.data : [];
-    const supabaseData = supabaseResult.status === 'fulfilled'
-      ? supabaseResult.value.data : [];
-    const supabaseTotal = supabaseResult.status === 'fulfilled'
-      ? supabaseResult.value.total : 0;
-    const wallhavenTotal = wallhavenResult.status === 'fulfilled'
-      ? wallhavenResult.value.total : 0;
+    const wallhavenData  = wallhavenResult.status === 'fulfilled' ? wallhavenResult.value.data  : [];
+    const supabaseData   = supabaseResult.status  === 'fulfilled' ? supabaseResult.value.data   : [];
+    const supabaseTotal  = supabaseResult.status  === 'fulfilled' ? supabaseResult.value.total  : 0;
+    const wallhavenTotal = wallhavenResult.status === 'fulfilled' ? wallhavenResult.value.total : 0;
 
     // ── MERGE + SORT ──────────────────────────────────────────────
     let merged = [...supabaseData, ...wallhavenData];
 
-    // If completely empty — return graceful empty response (not 500)
     if (merged.length === 0) {
       return res.status(200).json({
-        data: [],
-        totalCount: 0,
-        page,
-        limit,
-        sort,
-        totalPages: 1,
-        sources: { wallhaven: 0, supabase: 0 },
+        data: [], totalCount: 0, page, limit, sort,
+        totalPages: 1, sources: { wallhaven: 0, supabase: 0 },
         warning: 'No wallpapers returned from either source',
       });
     }
 
     if (sort === 'random') {
       merged = shuffleArray(merged);
-    } else if (sort === 'newest') {
-      merged.sort((a, b) => new Date(b.date_added) - new Date(a.date_added));
     } else if (sort === 'oldest') {
       merged.sort((a, b) => new Date(a.date_added) - new Date(b.date_added));
+    } else if (sort === 'newest') {
+      merged.sort((a, b) => new Date(b.date_added) - new Date(a.date_added));
     }
+    // hot/toplist — Wallhaven already returns them in best order, keep as-is
 
     const totalCount = supabaseTotal + wallhavenTotal;
     const totalPages = Math.max(1, Math.ceil(totalCount / limit));
 
     // ── CACHE ─────────────────────────────────────────────────────
-    const cacheAge = sort === 'random' ? 10 : 60;
-    res.setHeader('Cache-Control', `public, s-maxage=${cacheAge}, stale-while-revalidate=120`);
+    const cacheAge = sort === 'random' ? 10 : sort === 'hot' ? 120 : 300;
+    res.setHeader('Cache-Control', `public, s-maxage=${cacheAge}, stale-while-revalidate=600`);
 
     return res.status(200).json({
       data: merged,
@@ -255,7 +280,7 @@ module.exports = async (req, res) => {
       totalPages,
       sources: {
         wallhaven: wallhavenData.length,
-        supabase: supabaseData.length,
+        supabase:  supabaseData.length,
       },
     });
 
