@@ -1,8 +1,13 @@
 {
   "version": 2,
+  "functions": {
+    "api/combined.js": { "maxDuration": 15 },
+    "api/wallhaven.js": { "maxDuration": 15 },
+    "api/wallpapers.js": { "maxDuration": 15 }
+  },
   "rewrites": [
     {
-      "source": "/((?!sitemap.xml|robots.txt).*)",
+      "source": "/((?!api/|sitemap\\.xml|robots\\.txt|manifest\\.json|sw\\.js|icons/).*)",
       "destination": "/index.html"
     }
   ]
