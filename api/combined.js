@@ -3,6 +3,7 @@
  * ─────────────────────────────────────────────
  * Fetches wallpapers from BOTH Supabase AND Wallhaven,
  * merges them, shuffles, and returns a unified feed.
+ * API key is NEVER exposed to the frontend — server-side only.
  *
  * Query params:
  *   page  : int    (default 1)
@@ -43,9 +44,15 @@ function shuffleArray(arr) {
 
 // ── FETCH FROM WALLHAVEN ──────────────────────────────────────────────
 async function fetchFromWallhaven(apiKey, page, q) {
+  // Guard: never call Wallhaven without a valid key
+  if (!apiKey || typeof apiKey !== 'string' || apiKey.trim().length < 8) {
+    console.error('[wall-ANI] Wallhaven API key is missing or invalid');
+    return { data: [], total: 0 };
+  }
+
   try {
     const params = new URLSearchParams({
-      apikey: apiKey,
+      apikey: apiKey.trim(),
       q,
       categories: '010',
       purity: '100',
@@ -55,11 +62,34 @@ async function fetchFromWallhaven(apiKey, page, q) {
       atleast: '1920x1080',
     });
 
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 10000); // 10s timeout
+
     const res = await fetch(`https://wallhaven.cc/api/v1/search?${params}`, {
-      headers: { 'User-Agent': 'wall-ANI/1.0' },
+      headers: {
+        'User-Agent': 'wall-ANI/1.0',
+        'Accept': 'application/json',
+      },
+      signal: controller.signal,
     });
 
-    if (!res.ok) return { data: [], total: 0 };
+    clearTimeout(timeout);
+
+    // Handle Wallhaven rate limiting gracefully
+    if (res.status === 429) {
+      console.warn('[wall-ANI] Wallhaven rate limit hit — returning empty');
+      return { data: [], total: 0, rateLimited: true };
+    }
+
+    if (res.status === 401) {
+      console.error('[wall-ANI] Wallhaven API key rejected (401)');
+      return { data: [], total: 0, authError: true };
+    }
+
+    if (!res.ok) {
+      console.error('[wall-ANI] Wallhaven error status:', res.status);
+      return { data: [], total: 0 };
+    }
 
     const json = await res.json();
     const raw = json.data || [];
@@ -73,11 +103,16 @@ async function fetchFromWallhaven(apiKey, page, q) {
       date_added: w.created_at,
       type: 'wallhaven',
       source: 'wallhaven',
+      resolution: w.resolution || null,
     }));
 
     return { data, total: json.meta?.total || data.length };
   } catch (err) {
-    console.error('[wall-ANI] Wallhaven error:', err.message);
+    if (err.name === 'AbortError') {
+      console.error('[wall-ANI] Wallhaven request timed out');
+    } else {
+      console.error('[wall-ANI] Wallhaven fetch error:', err.message);
+    }
     return { data: [], total: 0 };
   }
 }
@@ -109,7 +144,10 @@ async function fetchFromSupabase(supabaseUrl, supabaseKey, page, limit, sort) {
     query = query.range(from, to);
 
     const { data, error } = await query;
-    if (error) return { data: [], total: 0 };
+    if (error) {
+      console.error('[wall-ANI] Supabase query error:', error.message);
+      return { data: [], total: 0 };
+    }
 
     const normalized = (data || []).map(w => ({ ...w, source: 'supabase' }));
     return { data: normalized, total: count || 0 };
@@ -135,27 +173,36 @@ module.exports = async (req, res) => {
   if (req.method !== 'GET') return res.status(405).json({ error: 'Method Not Allowed' });
 
   // ── VALIDATE ENV ──────────────────────────────────────────────────
-  const supabaseUrl = process.env.SUPABASE_URL;
-  const supabaseKey = process.env.SUPABASE_ANON_KEY;
+  const supabaseUrl  = process.env.SUPABASE_URL;
+  const supabaseKey  = process.env.SUPABASE_ANON_KEY;
   const wallhavenKey = process.env.WALLHAVEN_KEY;
 
-  if (!supabaseUrl || !supabaseKey || !wallhavenKey) {
-    console.error('[wall-ANI] Missing environment variables');
-    return res.status(500).json({ error: 'Server configuration error' });
+  // Log which vars are present (never log values!)
+  if (!supabaseUrl)  console.error('[wall-ANI] SUPABASE_URL is not set');
+  if (!supabaseKey)  console.error('[wall-ANI] SUPABASE_ANON_KEY is not set');
+  if (!wallhavenKey) console.error('[wall-ANI] WALLHAVEN_KEY is not set');
+
+  // If ALL are missing something is very wrong
+  if (!supabaseUrl && !supabaseKey && !wallhavenKey) {
+    return res.status(500).json({ error: 'Server configuration error — env vars missing' });
   }
 
   // ── PARSE PARAMS ──────────────────────────────────────────────────
-  const page = parseIntParam(req.query.page, 1, 1, 999);
+  const page  = parseIntParam(req.query.page, 1, 1, 999);
   const limit = parseIntParam(req.query.limit, 20, 1, 40);
-  const sort = ['newest', 'oldest', 'random'].includes(req.query.sort)
+  const sort  = ['newest', 'oldest', 'random'].includes(req.query.sort)
     ? req.query.sort : 'newest';
   const q = sanitizeQuery(req.query.q || 'anime');
 
   try {
     // ── FETCH BOTH SOURCES IN PARALLEL ───────────────────────────
     const [wallhavenResult, supabaseResult] = await Promise.allSettled([
-      fetchFromWallhaven(wallhavenKey, page, q),
-      fetchFromSupabase(supabaseUrl, supabaseKey, page, limit, sort),
+      wallhavenKey
+        ? fetchFromWallhaven(wallhavenKey, page, q)
+        : Promise.resolve({ data: [], total: 0 }),
+      (supabaseUrl && supabaseKey)
+        ? fetchFromSupabase(supabaseUrl, supabaseKey, page, limit, sort)
+        : Promise.resolve({ data: [], total: 0 }),
     ]);
 
     const wallhavenData = wallhavenResult.status === 'fulfilled'
@@ -169,6 +216,20 @@ module.exports = async (req, res) => {
 
     // ── MERGE + SORT ──────────────────────────────────────────────
     let merged = [...supabaseData, ...wallhavenData];
+
+    // If completely empty — return graceful empty response (not 500)
+    if (merged.length === 0) {
+      return res.status(200).json({
+        data: [],
+        totalCount: 0,
+        page,
+        limit,
+        sort,
+        totalPages: 1,
+        sources: { wallhaven: 0, supabase: 0 },
+        warning: 'No wallpapers returned from either source',
+      });
+    }
 
     if (sort === 'random') {
       merged = shuffleArray(merged);
