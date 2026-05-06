@@ -34,6 +34,9 @@
   <!-- ═══ STRUCTURED DATA ═══ -->
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"wall-ANI","url":"https://wall-ani.vercel.app","description":"Discover and download thousands of high-quality anime wallpapers in HD.","applicationCategory":"EntertainmentApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
 
+  <!-- ═══ ANIME TITLE GENERATOR ═══ -->
+  <script src="/titles.js"></script>
+
   <!-- ═══ FONTS ═══ -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -294,11 +297,11 @@
       padding-bottom: calc(var(--tabbar-h) + 16px);
       min-height: 100vh; position: relative; z-index: 1;
     }
-    .page { display: none; padding: 0 10px; }
+    .page { display: none; padding: 0; }
     .page.active { display: block; }
 
     /* ═══ SEARCH ═══ */
-    #search-wrap { padding: 0 10px 8px; position: relative; }
+    #search-wrap { padding: 0 12px 8px; position: relative; }
     #search-input {
       width: 100%; padding: 10px 16px 10px 36px;
       background: rgba(255,255,255,0.04);
@@ -324,11 +327,11 @@
     .sdot.g { background: var(--gold); }
     .sdot.d { background: var(--text-3); }
 
-    /* ═══ GRID — 3 COLUMNS ═══ */
+    /* ═══ GRID — 3 COLUMNS — EDGE TO EDGE ═══ */
     .grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 7px;
+      gap: 3px;
     }
     @media (min-width: 600px)  { .grid { grid-template-columns: repeat(4, 1fr); } }
     @media (min-width: 900px)  { .grid { grid-template-columns: repeat(5, 1fr); } }
@@ -337,26 +340,22 @@
 
     /* ═══ CARD ═══ */
     .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--r); overflow: hidden;
+      background: var(--bg3);
+      border: none;
+      border-radius: 10px; overflow: hidden;
       cursor: pointer; position: relative;
-      transition: transform var(--t), border-color var(--t), box-shadow var(--t);
+      transition: transform var(--t), box-shadow var(--t);
       animation: fadeUp 0.3s ease both;
     }
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(14px) scale(0.98); }
       to   { opacity: 1; transform: none; }
     }
-    .card:hover {
-      transform: translateY(-3px) scale(1.015);
-      border-color: rgba(201,168,76,0.35);
-      box-shadow: 0 8px 28px rgba(0,0,0,0.5), 0 0 0 1px rgba(201,168,76,0.08);
-    }
-    .card:active { transform: scale(0.98); }
+    .card:hover { transform: scale(1.02); box-shadow: 0 8px 28px rgba(0,0,0,0.6); }
+    .card:active { transform: scale(0.97); }
 
     /* Image */
-    .card-img { aspect-ratio: 9/16; overflow: hidden; position: relative; background: var(--bg3); }
+    .card-img { aspect-ratio: 3/4; overflow: hidden; position: relative; background: var(--bg3); }
     .card-img::before {
       content: ''; position: absolute; inset: 0; z-index: 0;
       background: linear-gradient(135deg, var(--bg3) 0%, var(--bg2) 100%);
@@ -377,15 +376,8 @@
     }
     .card:hover .card-overlay { opacity: 1; }
 
-    /* Source badge */
-    .src-badge {
-      position: absolute; bottom: 6px; left: 6px; z-index: 3;
-      font-size: 0.46rem; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase; padding: 2px 5px; border-radius: 3px;
-      backdrop-filter: blur(8px);
-    }
-    .src-badge.wh { background: rgba(201,168,76,0.18); color: var(--gold); border: 1px solid rgba(201,168,76,0.28); }
-    .src-badge.sb { background: rgba(255,255,255,0.08); color: #aaa9a0; border: 1px solid rgba(255,255,255,0.1); }
+    /* Source badge — hidden in gallery view */
+    .src-badge { display: none; }
 
     /* ═══════════════════════════════════════════════
        FEATURE 1 — ALWAYS-VISIBLE FLOATING ACTION BUTTONS
@@ -429,31 +421,23 @@
       border-color: var(--gold);
     }
 
-    /* Card info */
-    .card-info { padding: 6px 7px 8px; }
-    .card-title {
-      font-size: 0.68rem; font-weight: 600; color: var(--text);
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    }
-    .card-cat { font-size: 0.57rem; color: var(--text-3); margin-top: 1px; letter-spacing: 0.05em; text-transform: uppercase; }
+    /* Card info — hidden, pure gallery style */
+    .card-info { display: none; }
+    .card-title { display: none; }
+    .card-cat { display: none; }
 
     /* ═══ SKELETON ═══ */
     .skel {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: var(--r); overflow: hidden;
+      background: var(--bg3); border: none;
+      border-radius: 10px; overflow: hidden;
     }
     .skel-img {
-      aspect-ratio: 9/16;
+      aspect-ratio: 3/4;
       background: linear-gradient(90deg, var(--bg3) 25%, var(--bg4) 50%, var(--bg3) 75%);
       background-size: 200% 100%; animation: shimmer 1.5s infinite;
     }
-    .skel-info { padding: 6px 7px 8px; }
-    .skel-line {
-      height: 9px; border-radius: 4px; margin-bottom: 5px;
-      background: linear-gradient(90deg, var(--bg3) 25%, var(--bg4) 50%, var(--bg3) 75%);
-      background-size: 200% 100%; animation: shimmer 1.5s infinite;
-    }
-    .skel-line:last-child { width: 50%; margin-bottom: 0; }
+    .skel-info { display: none; }
+    .skel-line { display: none; }
     @keyframes shimmer { to { background-position: -200% 0; } }
 
     /* ═══ PAGINATION ═══ */
@@ -1416,7 +1400,7 @@
         </div>
       </div>
       <div class="card-info">
-        <div class="card-title">${eh(w.title||w.id)}</div>
+        <div class="card-title">${eh(getAnimeTitle(w))}</div>
         <div class="card-cat">${eh(w.category||'anime')}</div>
       </div>`;
     lazy(card.querySelector('.card-thumb'),w.thumbnail_url||w.image_url);
@@ -1489,7 +1473,7 @@
   /* ── MODAL ── */
   const openModal=w=>{
     S.modal=w;loadModalImg(w.image_url);
-    document.getElementById('modal-title').textContent=w.title||w.id;
+    document.getElementById('modal-title').textContent=getAnimeTitle(w);
     document.getElementById('modal-cat').textContent=(w.category||'anime').toUpperCase();
     const src=document.getElementById('modal-src');
     src.textContent=w.source==='wallhaven'?'Wallhaven':'My Collection';
@@ -1619,6 +1603,36 @@
   const ea=s=>String(s||'').replace(/['"<>&]/g,c=>({"'":"&#39;",'"':"&quot;",'<':'&lt;','>':'&gt;','&':'&amp;'}[c]));
   const sfn=n=>(n||'').replace(/[^a-z0-9_\-\s]/gi,'').trim().replace(/\s+/g,'_').slice(0,80)||'wallpaper';
   const fd=ts=>new Date(ts).toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'});
+
+  /* ── BEAUTIFUL TITLE GENERATOR ── */
+  // Converts ugly Wallhaven IDs like "w51j8q" into beautiful anime-style titles
+  const ANIME_TITLES = [
+    'Sakura Dreams','Neon Horizon','Silent Bloom','Crimson Sky',
+    'Ethereal Light','Shadow Garden','Crystal Rain','Moonlit Path',
+    'Ember Glow','Starfall Night','Golden Hour','Distant World',
+    'Soft Reverie','Ocean Whisper','Twilight Echo','Velvet Storm',
+    'Frozen Moment','Radiant Soul','Cherry Blossom','Cosmic Drift',
+    'Azure Realm','Gentle Breeze','Phantom Haze','Sunrise Spirit',
+    'Willow Memory','Storm Chaser','Silver Lining','Petal Fall',
+    'Dusk Oracle','Nebula Kiss','Mirror Lake','Solstice Dream',
+    'Wandering Star','Quiet Thunder','Flame Heart','Ivory Tower',
+    'Cascade Light','Broken Wings','Eternal Spring','Lost Signal',
+    'Parallel World','Hidden Sky','Echo Chamber','Prism Garden',
+    'Fading Echo','Neon Sakura','Midnight Blue','Aurora Wave',
+  ];
+
+  // Deterministic title from wallpaper ID — same ID always gets same title
+  const getAnimeTitle = (w) => {
+    // If it already has a real title (not a raw Wallhaven ID), use it
+    if (w.source !== 'wallhaven') return w.title || 'Anime Wallpaper';
+    // Raw Wallhaven IDs are short alphanumeric like "w51j8q" — detect and replace
+    const raw = String(w.title || w.id || '');
+    const isRawId = /^(wh_)?[a-z0-9]{4,8}$/i.test(raw.replace(/^wh_/,''));
+    if (!isRawId) return raw; // Already has a good title
+    // Generate deterministic beautiful title from ID hash
+    const hash = raw.split('').reduce((acc, c) => acc + c.charCodeAt(0), 0);
+    return ANIME_TITLES[hash % ANIME_TITLES.length];
+  };
 
   /* ══════════════════════════════════════════════════════════
      FEATURE 2 — WALLPAPER PREVIEW SCREEN LOGIC
