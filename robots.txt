@@ -1,5 +1,11 @@
 # wall-ANI — robots.txt
+# https://wall-ani.vercel.app
+
 User-agent: *
 Allow: /
+
+# Block only API routes from crawlers
 Disallow: /api/
+
+# Sitemap location
 Sitemap: https://wall-ani.vercel.app/sitemap.xml
